@@ -1,0 +1,9 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Built directories
+node_modules
+lib
+test/**/*.js
