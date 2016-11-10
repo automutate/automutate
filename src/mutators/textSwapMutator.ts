@@ -9,12 +9,17 @@ export interface ITextSwapMutation extends IMutation {
      * Text to be inserted.
      */
     insertion: string;
+
+    /**
+     * Unique type name identifying text swap mutations.
+     */
+    type: "text-swap";
 }
 
 /**
  * Applies text swap mutations to a file.
  */
-export class TextSwapMutator extends Mutator<ITextSwapMutation> {
+export class TextSwapMutator extends Mutator {
     /**
      * Applies a mutation.
      * 

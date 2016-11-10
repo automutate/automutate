@@ -4,12 +4,17 @@ import { Mutator } from "../mutator";
 /**
  * Description of deleting a part of a file.
  */
-export interface ITextDeleteMutation extends IMutation { }
+export interface ITextDeleteMutation extends IMutation {
+    /**
+     * Unique type name identifying text delete mutations.
+     */
+    type: "text-delete";
+}
 
 /**
  * Applies text deletion mutations to a file.
  */
-export class TextDeleteMutator extends Mutator<ITextDeleteMutation> {
+export class TextDeleteMutator extends Mutator {
     /**
      * Applies a mutation.
      * 

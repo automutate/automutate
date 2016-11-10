@@ -14,12 +14,17 @@ export interface ITextReplaceMutation extends IMutation {
      * String to be removed.
      */
     search: string;
+
+    /**
+     * Unique type name identifying text replace mutations.
+     */
+    type: "text-replace";
 }
 
 /**
  * Applies text replace mutations to a file.
  */
-export class TextReplaceMutator extends Mutator<ITextReplaceMutation> {
+export class TextReplaceMutator extends Mutator {
     /**
      * Applies a mutation.
      * 

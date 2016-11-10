@@ -1,7 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
 
-import { IMutation } from "./mutation";
 import { IMutator } from "./mutator";
 import { NameTransformer } from "./nameTransformer";
 
@@ -20,13 +19,13 @@ export interface IMutatorSearcher {
      * @param name   Dashed-case name of the mutator sub-class.
      * @returns The mutator sub-class, if it can be found.
      */
-    search<TMutator extends IMutator<IMutation>>(name: string): IMutatorClass<TMutator> | undefined;
+    search<TMutator extends IMutator>(name: string): IMutatorClass<TMutator> | undefined;
 }
 
 /**
  * Implementation of the IMutator interface.
  */
-export interface IMutatorClass<TMutator extends IMutator<IMutation>> {
+export interface IMutatorClass<TMutator extends IMutator> {
     /**
      * Initializes a new instance of the TMutator class.
      */
@@ -64,7 +63,7 @@ export class MutatorSearcher implements IMutatorSearcher {
      * @param name   Dashed-case name of the mutator sub-class.
      * @returns The mutator sub-class, if it can be found.
      */
-    public search<TMutator extends IMutator<IMutation>>(name: string): IMutatorClass<TMutator> | undefined {
+    public search<TMutator extends IMutator>(name: string): IMutatorClass<TMutator> | undefined {
         const camelCaseName: string = this.nameTransformer.toCamelCase(name);
 
         for (const directory of this.directories) {

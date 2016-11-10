@@ -1,12 +1,12 @@
-import { IMutation } from "./mutation";
 import { IMutator } from "./mutator";
+import { IMutation } from "./mutation";
 import { IMutatorSearcher, IMutatorClass } from "./mutatorSearcher";
 
 /**
  * Mutator sub-classes, keyed by dashed-case name.
  */
 interface IMutatorClasses {
-    [i: string]: IMutatorClass<IMutator<IMutation>>;
+    [i: string]: IMutatorClass<IMutator>;
 }
 
 /**
@@ -19,7 +19,16 @@ export interface IMutatorFactory {
      * @param name   Dashed-case name of the mutator sub-class.
      * @returns An instance of the mutator sub-class, if the sub-class can be found.
      */
-    generate<TMutator extends IMutator<TMutation>, TMutation extends IMutation>(name: string): TMutator | undefined;
+    generate<TMutator extends IMutator>(name: string): TMutator | undefined;
+
+    /**
+     * Generates and applied a mutator, if possible.
+     * 
+     * @param fileName   Name of the file.
+     * @param mutation   Mutation to be applied to the file.
+     * @returns The mutated file contents.
+     */
+    generateAndApply(fileContents: string, mutation: IMutation): string;
 }
 
 /**
@@ -51,7 +60,7 @@ export class MutatorFactory implements IMutatorFactory {
      * @param name   Dashed-case name of the mutator sub-class.
      * @returns An instance of the mutator sub-class, if the sub-class can be found.
      */
-    public generate<TMutator extends IMutator<TMutation>, TMutation extends IMutation>(name: string): TMutator | undefined {
+    public generate<TMutator extends IMutator>(name: string): TMutator | undefined {
         if (!this.classes[name]) {
             const mutatorClass: IMutatorClass<TMutator> | undefined = this.searcher.search<TMutator>(name);
             if (!mutatorClass) {
@@ -62,5 +71,23 @@ export class MutatorFactory implements IMutatorFactory {
         }
 
         return new this.classes[name]() as TMutator;
+    }
+
+    /**
+     * Generates and applied a mutator, if possible.
+     * 
+     * @param fileName   Name of the file.
+     * @param mutation   Mutation to be applied to the file.
+     * @returns The mutated file contents.
+     */
+    public generateAndApply(fileContents: string, mutation: IMutation): string {
+        const mutator: IMutator | undefined = this.generate(mutation.type);
+        if (!mutator) {
+            // Todo: use a logger
+            console.error(`Unknown mutator type: '${mutation.type}'`);
+            return fileContents;
+        }
+
+        return mutator.mutate(fileContents, mutation, this);
     }
 }

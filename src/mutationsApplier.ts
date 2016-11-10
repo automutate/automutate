@@ -2,7 +2,7 @@ import { IFileProvider } from "./fileProvider";
 import { IFileProviderFactory } from "./fileProviderFactory";
 import { IMutation } from "./mutation";
 import { IFileMutations } from "./mutationsProvider";
-import { IMutator } from "./mutator";
+import { Mutator } from "./mutator";
 import { IMutatorFactory } from "./mutatorFactory";
 
 /**
@@ -79,14 +79,7 @@ export class MutationsApplier implements IMutationsApplier {
         let fileContents: string = await fileProvider.read();
 
         for (const mutation of mutationsOrdered) {
-            const mutator: IMutator<IMutation> | undefined = this.mutatorFactory.generate(mutation.type);
-            if (!mutator) {
-                // Todo: use a logger
-                console.error(`Unknown mutator type: '${mutation.type}'`);
-                continue;
-            }
-
-            fileContents = mutator.mutate(fileContents, mutation);
+            fileContents = this.mutatorFactory.generateAndApply(fileContents, mutation);
         }
 
         await fileProvider.write(fileContents);

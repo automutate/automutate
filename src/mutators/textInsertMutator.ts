@@ -9,12 +9,17 @@ export interface ITextInsertMutation extends IMutation {
      * Text to be inserted.
      */
     insertion: string;
+
+    /**
+     * Unique type name identifying text insert mutations.
+     */
+    type: "text-insert";
 }
 
 /**
  * Applies text insertion mutations to a file.
  */
-export class TextInsertMutator extends Mutator<ITextInsertMutation> {
+export class TextInsertMutator extends Mutator {
     /**
      * Applies a mutation.
      * 
