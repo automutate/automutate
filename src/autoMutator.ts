@@ -1,3 +1,4 @@
+import { ILogger } from "./logger";
 import { IMutationsApplier } from "./mutationsApplier";
 import { IMutationsProvider, IMutationsWave } from "./mutationsProvider";
 
@@ -28,14 +29,20 @@ export class AutoMutator implements IAutoMutator {
     private mutationsProvider: IMutationsProvider;
 
     /**
+     * Generates output messages for significant operations.
+     */
+    private logger: ILogger;
+
+    /**
      * Initializes a new instance of the AutoMutator class.
      * 
      * @param mutationsApplier   Applies individual waves of file mutations.
      * @param mutationsProvider   Provides waves of file mutations.
      */
-    constructor(mutationsApplier: IMutationsApplier, mutationsProvider: IMutationsProvider) {
+    constructor(mutationsApplier: IMutationsApplier, mutationsProvider: IMutationsProvider, logger: ILogger) {
         this.mutationsApplier = mutationsApplier;
         this.mutationsProvider = mutationsProvider;
+        this.logger = logger;
     }
 
     /**
@@ -45,12 +52,14 @@ export class AutoMutator implements IAutoMutator {
      */
     public async run(): Promise<void> {
         while (true) {
-            const mutations: IMutationsWave = await this.mutationsProvider.provide();
-            if (!mutations.fileMutations) {
+            const mutationsWave: IMutationsWave = await this.mutationsProvider.provide();
+            if (!mutationsWave.fileMutations) {
                 break;
             }
 
-            this.mutationsApplier.apply(mutations.fileMutations);
+            this.logger.onWaveBegin(mutationsWave);
+            this.mutationsApplier.apply(mutationsWave.fileMutations);
+            this.logger.onWaveEnd(mutationsWave);
         }
     }
 }

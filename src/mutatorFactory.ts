@@ -1,3 +1,4 @@
+import { ILogger } from "./logger";
 import { IMutator } from "./mutator";
 import { IMutation } from "./mutation";
 import { IMutatorSearcher, IMutatorClass } from "./mutatorSearcher";
@@ -46,12 +47,18 @@ export class MutatorFactory implements IMutatorFactory {
     private readonly searcher: IMutatorSearcher;
 
     /**
+     * Generates output messages for significant operations.
+     */
+    private readonly logger: ILogger;
+
+    /**
      * Initializes a new instance of the MutatorFactory class.
      * 
      * @param searcher   Searches for mutator classes.
      */
-    public constructor(searcher: IMutatorSearcher) {
-        this.searcher = searcher;
+    public constructor(mutatorSearcher: IMutatorSearcher, logger: ILogger) {
+        this.searcher = mutatorSearcher;
+        this.logger = logger;
     }
 
     /**
@@ -83,8 +90,7 @@ export class MutatorFactory implements IMutatorFactory {
     public generateAndApply(fileContents: string, mutation: IMutation): string {
         const mutator: IMutator | undefined = this.generate(mutation.type);
         if (!mutator) {
-            // Todo: use a logger
-            console.error(`Unknown mutator type: '${mutation.type}'`);
+            this.logger.onUnknownMutationType(mutation);
             return fileContents;
         }
 

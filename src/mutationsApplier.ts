@@ -2,7 +2,6 @@ import { IFileProvider } from "./fileProvider";
 import { IFileProviderFactory } from "./fileProviderFactory";
 import { IMutation } from "./mutation";
 import { IFileMutations } from "./mutationsProvider";
-import { Mutator } from "./mutator";
 import { IMutatorFactory } from "./mutatorFactory";
 
 /**
