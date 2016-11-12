@@ -21,17 +21,17 @@ export class AutoMutator implements IAutoMutator {
     /**
      * Applies individual waves of file mutations.
      */
-    private mutationsApplier: IMutationsApplier;
+    private readonly mutationsApplier: IMutationsApplier;
 
     /**
      * Provides waves of file mutations.
      */
-    private mutationsProvider: IMutationsProvider;
+    private readonly mutationsProvider: IMutationsProvider;
 
     /**
      * Generates output messages for significant operations.
      */
-    private logger: ILogger;
+    private readonly logger: ILogger;
 
     /**
      * Initializes a new instance of the AutoMutator class.
