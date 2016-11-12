@@ -33,12 +33,12 @@ export class MutationsApplier implements IMutationsApplier {
     /**
      * Creates file providers for files.
      */
-    private fileProviderFactory: IFileProviderFactory;
+    private readonly fileProviderFactory: IFileProviderFactory;
 
     /**
      * Creates mutators for mutations.
      */
-    private mutatorFactory: IMutatorFactory;
+    private readonly mutatorFactory: IMutatorFactory;
 
     /**
      * Initializes a new instance of the MutationsApplier class.
