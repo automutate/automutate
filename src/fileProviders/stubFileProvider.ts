@@ -1,4 +1,4 @@
-import { IFileProvider } from "../../../lib/fileProvider";
+import { IFileProvider } from "../fileProvider";
 
 /**
  * Pretends to be a file.

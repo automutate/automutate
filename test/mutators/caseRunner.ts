@@ -1,12 +1,12 @@
 import * as path from "path";
 
-import { MutationsApplier } from "../../lib/mutationsApplier";
+import { IMutationsApplier, MutationsApplier } from "../../lib/mutationsApplier";
 import { ConsoleLogger } from "../../lib/loggers/consoleLogger";
 import { IFileProvider } from "../../lib/fileProvider";
+import { StubFileProvider } from "../../lib/fileProviders/stubFileProvider";
 import { MutatorFactory } from "../../lib/mutatorFactory";
-import { MutatorSearcher } from "../../lib/mutatorSearcher";
+import { IMutatorSearcher, MutatorSearcher } from "../../lib/mutatorSearcher";
 import { ITestCase } from "./testCase";
-import { StubFileProvider } from "./fakes/StubFileProvider";
 
 /**
  * Directs a test harness to expect two strings to be the same.
@@ -44,12 +44,13 @@ export class CaseRunner {
      */
     public async runCase(testCase: ITestCase): Promise<void> {
         // Arrange
-        const mutatorSearcher: MutatorSearcher = new MutatorSearcher([
+        const mutatorSearcher: IMutatorSearcher = new MutatorSearcher([
             path.join(__dirname, "../../lib/mutators")
         ]);
         const stubFileProvider: IFileProvider = new StubFileProvider(testCase.before);
-        const mutationsApplier: MutationsApplier = new MutationsApplier(
-            (): IFileProvider => stubFileProvider, new MutatorFactory(mutatorSearcher, new ConsoleLogger()));
+        const mutationsApplier: IMutationsApplier = new MutationsApplier(
+            (): IFileProvider => stubFileProvider,
+            new MutatorFactory(mutatorSearcher, new ConsoleLogger()));
 
         // Act
         const actual: string = await mutationsApplier.applyFileMutations(
