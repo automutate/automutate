@@ -1,0 +1,7 @@
+[
+    {
+        "insertion": "123",
+        "range": [2, 5],
+        "type": "text-swap"
+    }
+]

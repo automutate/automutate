@@ -4,22 +4,21 @@ import { IMutatorFactory } from "./mutatorFactory";
 /**
  * Applies a type of mutation to a file.
  */
-export interface IMutator {
+export abstract class Mutator {
     /**
-     * Applies a mutation.
-     * 
-     * @param fileContents   Current contents of the file.
-     * @param mutation   Mutation to apply.
-     * @param mutatorFactory   Creates mutators for mutations.
-     * @returns File contents after applying the mutation.
+     * Original contents of the file.
      */
-    mutate(fileContents: string, mutation: IMutation, mutatorFactory: IMutatorFactory): string;
-}
+    private readonly originalFileContents: string;
 
-/**
- * Applies a type of mutation to a file.
- */
-export abstract class Mutator implements IMutator {
+    /**
+     * Initializes a new instance of the Mutator class.
+     * 
+     * @param originalFileContents   Original contents of the file.
+     */
+    public constructor(originalFileContents: string) {
+        this.originalFileContents = originalFileContents;
+    }
+
     /**
      * Applies a mutation.
      * 
@@ -29,4 +28,11 @@ export abstract class Mutator implements IMutator {
      * @returns File contents after applying the mutation.
      */
     public abstract mutate(fileContents: string, mutation: IMutation, mutatorFactory: IMutatorFactory): string;
+
+    /**
+     * @returns Original contents of the file.
+     */
+    protected getOriginalFileContents(): string {
+        return this.originalFileContents;
+    }
 }

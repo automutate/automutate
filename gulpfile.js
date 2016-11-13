@@ -67,17 +67,11 @@ gulp.task("test:unit", () => {
         }));
 });
 
-gulp.task("test:component", () => {
-    return gulp.src("test/component/**/*.js")
+gulp.task("test:mutators", () => {
+    return gulp.src("test/mutators/runTests.js")
         .pipe(mocha({
+            delay: true,
             reporter: "spec",
-        }));
-});
-
-gulp.task("test:rules", () => {
-    return gulp.src("test/rules.js")
-        .pipe(mocha({
-            reporter: "spec"
         }));
 });
 
@@ -85,8 +79,7 @@ gulp.task("test", callback => {
     runSequence(
         ["test:tsc", "test:tslint"],
         "test:unit",
-        "test:component",
-        "test:rules",
+        "test:mutators",
         callback);
 });
 

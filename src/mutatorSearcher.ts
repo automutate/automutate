@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 
-import { IMutator } from "./mutator";
+import { Mutator } from "./mutator";
 import { NameTransformer } from "./nameTransformer";
 
 /**
@@ -19,13 +19,13 @@ export interface IMutatorSearcher {
      * @param name   Dashed-case name of the mutator sub-class.
      * @returns The mutator sub-class, if it can be found.
      */
-    search<TMutator extends IMutator>(name: string): IMutatorClass<TMutator> | undefined;
+    search<TMutator extends Mutator>(name: string): IMutatorClass<TMutator> | undefined;
 }
 
 /**
  * Implementation of the IMutator interface.
  */
-export interface IMutatorClass<TMutator extends IMutator> {
+export interface IMutatorClass<TMutator extends Mutator> {
     /**
      * Initializes a new instance of the TMutator class.
      */
@@ -37,14 +37,14 @@ export interface IMutatorClass<TMutator extends IMutator> {
  */
 export class MutatorSearcher implements IMutatorSearcher {
     /**
-     * Transforms dashed-case names to camelCase.
-     */
-    private readonly nameTransformer: NameTransformer;
-
-    /**
      * Directories to search within.
      */
     private readonly directories: string[];
+
+    /**
+     * Transforms dashed-case names to camelCase.
+     */
+    private readonly nameTransformer: NameTransformer;
 
     /**
      * Initializes a new instance of the MutatorSearcher class.
@@ -52,7 +52,7 @@ export class MutatorSearcher implements IMutatorSearcher {
      * @param nameTransformer  Transforms dashed-case names to camelCase.
      * @param directories   Directories to search within.
      */
-    public constructor(nameTransformer: NameTransformer, directories: string[]) {
+    public constructor(directories: string[], nameTransformer: NameTransformer = new NameTransformer()) {
         this.nameTransformer = nameTransformer;
         this.directories = directories;
     }
@@ -63,7 +63,7 @@ export class MutatorSearcher implements IMutatorSearcher {
      * @param name   Dashed-case name of the mutator sub-class.
      * @returns The mutator sub-class, if it can be found.
      */
-    public search<TMutator extends IMutator>(name: string): IMutatorClass<TMutator> | undefined {
+    public search<TMutator extends Mutator>(name: string): IMutatorClass<TMutator> | undefined {
         const camelCaseName: string = this.nameTransformer.toCamelCase(name);
 
         for (const directory of this.directories) {

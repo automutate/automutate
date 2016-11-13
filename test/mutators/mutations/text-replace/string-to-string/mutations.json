@@ -1,0 +1,8 @@
+[
+    {
+        "replace": "12",
+        "search": "cd",
+        "range": [2, 5],
+        "type": "text-replace"
+    }
+]

@@ -1,5 +1,5 @@
 import { ILogger } from "./logger";
-import { IMutator } from "./mutator";
+import { Mutator } from "./mutator";
 import { IMutation } from "./mutation";
 import { IMutatorSearcher, IMutatorClass } from "./mutatorSearcher";
 
@@ -7,7 +7,7 @@ import { IMutatorSearcher, IMutatorClass } from "./mutatorSearcher";
  * Mutator sub-classes, keyed by dashed-case name.
  */
 interface IMutatorClasses {
-    [i: string]: IMutatorClass<IMutator>;
+    [i: string]: IMutatorClass<Mutator>;
 }
 
 /**
@@ -15,12 +15,13 @@ interface IMutatorClasses {
  */
 export interface IMutatorFactory {
     /**
-     * Attempts to find and instantiate a mutator sub-class.
+     * Attempts to find and instantiate a mutator sub-class for a file.
      * 
      * @param name   Dashed-case name of the mutator sub-class.
+     * @param fileContents   Contents of the file.
      * @returns An instance of the mutator sub-class, if the sub-class can be found.
      */
-    generate<TMutator extends IMutator>(name: string): TMutator | undefined;
+    generate<TMutator extends Mutator>(name: string, fileContents: string): TMutator | undefined;
 
     /**
      * Generates and applied a mutator, if possible.
@@ -62,12 +63,13 @@ export class MutatorFactory implements IMutatorFactory {
     }
 
     /**
-     * Attempts to find and instantiate a mutator sub-class.
+     * Attempts to find and instantiate a mutator sub-class for a file.
      * 
      * @param name   Dashed-case name of the mutator sub-class.
+     * @param fileContents   Contents of the file.
      * @returns An instance of the mutator sub-class, if the sub-class can be found.
      */
-    public generate<TMutator extends IMutator>(name: string): TMutator | undefined {
+    public generate<TMutator extends Mutator>(name: string, fileContents: string): TMutator | undefined {
         if (!this.classes[name]) {
             const mutatorClass: IMutatorClass<TMutator> | undefined = this.searcher.search<TMutator>(name);
             if (!mutatorClass) {
@@ -77,7 +79,8 @@ export class MutatorFactory implements IMutatorFactory {
             this.classes[name] = mutatorClass;
         }
 
-        return new this.classes[name]() as TMutator;
+        // @todo Use some form of "implements" keyword when TypeScript supports it
+        return new (this.classes[name] as any)(fileContents) as TMutator;
     }
 
     /**
@@ -88,7 +91,7 @@ export class MutatorFactory implements IMutatorFactory {
      * @returns The mutated file contents.
      */
     public generateAndApply(fileContents: string, mutation: IMutation): string {
-        const mutator: IMutator | undefined = this.generate(mutation.type);
+        const mutator: Mutator | undefined = this.generate(mutation.type, fileContents);
         if (!mutator) {
             this.logger.onUnknownMutationType(mutation);
             return fileContents;

@@ -1,0 +1,8 @@
+[
+    {
+        "replace": "1",
+        "search": "c|d",
+        "range": [2, 5],
+        "type": "text-replace"
+    }
+]

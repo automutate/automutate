@@ -1,0 +1,16 @@
+[
+    {
+        "mutations": [
+            {
+                "range": [2, 5],
+                "type": "text-delete"
+            },
+            {
+                "insertion": "12",
+                "range": [2, 4],
+                "type": "text-swap"
+            }],
+        "range": [2, 5],
+        "type": "multiple"
+    }
+]

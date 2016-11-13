@@ -21,9 +21,9 @@ export interface IMutationsApplier {
      * 
      * @param fileName   Name of the file.
      * @param mutations   Mutations to be applied to the file.
-     * @returns A Promise for applying the file's mutations.
+     * @returns A Promise for the result of the file's mutations.
      */
-    applyFileMutations(fileName: string, mutations: IMutation[]): Promise<void>;
+    applyFileMutations(fileName: string, mutations: IMutation[]): Promise<string>;
 }
 
 /**
@@ -70,9 +70,9 @@ export class MutationsApplier implements IMutationsApplier {
      * 
      * @param fileName   Name of the file.
      * @param mutations   Mutations to be applied to the file.
-     * @returns A Promise for applying the file's mutations.
+     * @returns A Promise for the result of the file's mutations.
      */
-    public async applyFileMutations(fileName: string, mutations: IMutation[]): Promise<void> {
+    public async applyFileMutations(fileName: string, mutations: IMutation[]): Promise<string> {
         const mutationsOrdered: IMutation[] = this.orderMutations(mutations);
         const fileProvider: IFileProvider = this.fileProviderFactory(fileName);
         let fileContents: string = await fileProvider.read();
@@ -82,6 +82,7 @@ export class MutationsApplier implements IMutationsApplier {
         }
 
         await fileProvider.write(fileContents);
+        return fileContents;
     }
 
     /**
