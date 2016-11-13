@@ -2,10 +2,16 @@
     {
         "mutations": [
             {
-                "range": [2, 5],
+                "range": {
+                    "begin": 2,
+                    "end": 5
+                },
                 "type": "text-delete"
             }],
-        "range": [2, 5],
+        "range": {
+            "begin": 2,
+            "end": 5
+        },
         "type": "multiple"
     }
 ]

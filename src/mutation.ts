@@ -1,11 +1,26 @@
 /**
+ * Character positions a mutation affects.
+ */
+export interface IMutationRange {
+    /**
+     * Inclusive character position this starts at.
+     */
+    begin: number;
+
+    /**
+     * Exclusive character position this ends at.
+     */
+    end?: number;
+}
+
+/**
  * Description of a mutation to be applied to a file.
  */
 export interface IMutation {
     /**
-     * Inclusive start and exclusive end character positions this affects.
+     * Character positions this affects.
      */
-    range: [number, number];
+    range: IMutationRange;
 
     /**
      * Unique type name identifying this mutation.

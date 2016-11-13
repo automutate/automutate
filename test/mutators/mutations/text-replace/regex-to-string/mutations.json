@@ -2,7 +2,10 @@
     {
         "replace": "1",
         "search": "c|d",
-        "range": [2, 5],
+        "range": {
+            "begin": 2,
+            "end": 5
+        },
         "type": "text-replace"
     }
 ]

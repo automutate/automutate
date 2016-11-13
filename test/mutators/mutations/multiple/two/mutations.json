@@ -2,15 +2,24 @@
     {
         "mutations": [
             {
-                "range": [2, 5],
+                "range": {
+                    "begin": 2,
+                    "end": 5
+                },
                 "type": "text-delete"
             },
             {
                 "insertion": "12",
-                "range": [2, 4],
+                "range": {
+                    "begin": 2,
+                    "end": 4
+                },
                 "type": "text-swap"
             }],
-        "range": [2, 5],
+        "range": {
+            "begin": 2,
+            "end": 5
+        },
         "type": "multiple"
     }
 ]

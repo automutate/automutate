@@ -1,7 +1,10 @@
 [
     {
         "insertion": "123",
-        "range": [2, 5],
+        "range": {
+            "begin": 2,
+            "end": 5
+        },
         "type": "text-swap"
     }
 ]

@@ -1,7 +1,9 @@
 [
     {
         "insertion": "123",
-        "range": [3],
+        "range": {
+            "begin": 3
+        },
         "type": "text-insert"
     }
 ]

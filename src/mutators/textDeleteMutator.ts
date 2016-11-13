@@ -24,8 +24,8 @@ export class TextDeleteMutator extends Mutator {
      */
     public mutate(fileContents: string, mutation: ITextDeleteMutation): string {
         return [
-            fileContents.substring(0, mutation.range[0]),
-            fileContents.substring(mutation.range[1])
+            fileContents.substring(0, mutation.range.begin),
+            fileContents.substring(mutation.range.end || mutation.range.begin)
         ].join("");
     }
 }

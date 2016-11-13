@@ -29,9 +29,9 @@ export class TextInsertMutator extends Mutator {
      */
     public mutate(fileContents: string, mutation: ITextInsertMutation): string {
         return [
-            fileContents.substring(0, mutation.range[0]),
+            fileContents.substring(0, mutation.range.begin),
             mutation.insertion,
-            fileContents.substring(mutation.range[0])
+            fileContents.substring(mutation.range.begin)
         ].join("");
     }
 }

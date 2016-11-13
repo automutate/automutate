@@ -97,11 +97,11 @@ export class MutationsApplier implements IMutationsApplier {
 
         for (let i: number = mutations.length - 1; i >= 0; i -= 1) {
             const mutation: IMutation = mutations[i];
-            if (mutation.range[1] > lastStart) {
+            if ((mutation.range.end || mutation.range.begin) > lastStart) {
                 continue;
             }
 
-            lastStart = mutation.range[0];
+            lastStart = mutation.range.begin;
             ordered.push(mutation);
         }
 
