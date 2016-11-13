@@ -60,3 +60,8 @@ For example, a language's linter may define a `node-rename` mutation rather than
 Each mutation is tied to an implementation of the abstract [`Mutator`](https://github.com/autolint/automutate/blob/master/src/mutator.ts) class by name.
 The default logic searches for these in user-provided directories under their `camelCase` name appended with `"Mutator"`.
 `text-insert`, for example, would be matched to `mutators/testInsertMutator.js`.
+
+Each mutator class is specific to a single type of mutation, and each mutator instance is specific to a file.
+Calls to `mutate` are given the current file contents as a string, along with the mutation to be applied, and return the file contents after the mutation.
+
+Mutators are also given the *original* file contents at construction time, which allows for custom mutators to perform setup logic (for example, a language's linter creating an abstract syntax tree for the file).
