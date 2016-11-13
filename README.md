@@ -23,7 +23,7 @@ Linters need to run quickly over a read-only set of files, often during built pr
 A single mutation contains a unique `type` identifier, a range of character position(s) to apply to, and optionally other logic.
 
 The following basic text manipulations are provided out of the box:
-* **`multiple`** - Container for multiple mutations. This indicates to `automutate` that these must be applied all at once or not at all, which guarantees consistency with the built-in rule overlap detection.
+* **`multiple`** - Container for multiple mutations. This indicates to `automutate` that these must be applied all at once or not at all, which guarantees consistency with the built-in mutation overlap detection.
 * **`text-delete`** - Deletes a range of characters.
 * **`text-insert`** - Inserts a string at a point.
 * **`text-replace`** - Replaces characters matching a string or regular expression within a range.
@@ -65,3 +65,11 @@ Each mutator class is specific to a single type of mutation, and each mutator in
 Calls to `mutate` are given the current file contents as a string, along with the mutation to be applied, and return the file contents after the mutation.
 
 Mutators are also given the *original* file contents at construction time, which allows for custom mutators to perform setup logic (for example, a language's linter creating an abstract syntax tree for the file).
+
+
+# Project Onboarding
+
+In order to be compatible with `automutate`, a linter must allow for some rules to report proposed fixes using the standard format.
+Once that is possible, it's a matter of creating a [mutations provider](https://github.com/autolint/automutate/blob/master/src/mutationsProvider.ts) that continuously retrieves these proposed fixes using the linter.
+
+*(example incoming - later today!)*
