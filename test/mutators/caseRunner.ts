@@ -3,6 +3,7 @@ import * as path from "path";
 import { IMutationsApplier, MutationsApplier } from "../../lib/mutationsApplier";
 import { ConsoleLogger } from "../../lib/loggers/consoleLogger";
 import { IFileProvider } from "../../lib/fileProvider";
+import { FileProviderFactory } from "../../lib/fileProviderFactory";
 import { StubFileProvider } from "../../lib/fileProviders/stubFileProvider";
 import { MutatorFactory } from "../../lib/mutatorFactory";
 import { IMutatorSearcher, MutatorSearcher } from "../../lib/mutatorSearcher";
@@ -49,7 +50,7 @@ export class CaseRunner {
         ]);
         const stubFileProvider: IFileProvider = new StubFileProvider(testCase.before);
         const mutationsApplier: IMutationsApplier = new MutationsApplier(
-            (): IFileProvider => stubFileProvider,
+            new FileProviderFactory((): IFileProvider => stubFileProvider),
             new MutatorFactory(mutatorSearcher, new ConsoleLogger()));
 
         // Act
