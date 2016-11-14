@@ -74,7 +74,7 @@ export class MutationsApplier implements IMutationsApplier {
      */
     public async applyFileMutations(fileName: string, mutations: IMutation[]): Promise<string> {
         const mutationsOrdered: IMutation[] = this.orderMutations(mutations);
-        const fileProvider: IFileProvider = this.fileProviderFactory(fileName);
+        const fileProvider: IFileProvider = this.fileProviderFactory.generate(fileName);
         let fileContents: string = await fileProvider.read();
 
         for (const mutation of mutationsOrdered) {
@@ -105,6 +105,8 @@ export class MutationsApplier implements IMutationsApplier {
             ordered.push(mutation);
         }
 
-        return ordered;
+        return ordered.sort((a: IMutation, b: IMutation): number => {
+            return (b.range.end || b.range.begin) - (a.range.end || a.range.begin);
+        });
     }
 }
