@@ -58,7 +58,7 @@ export class AutoMutator implements IAutoMutator {
             }
 
             this.logger.onWaveBegin(mutationsWave);
-            this.mutationsApplier.apply(mutationsWave.fileMutations);
+            await this.mutationsApplier.apply(mutationsWave.fileMutations);
             this.logger.onWaveEnd(mutationsWave);
         }
     }
