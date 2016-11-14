@@ -12,11 +12,6 @@ export interface IFileMutations {
  */
 export interface IMutationsWave {
     /**
-     * Description of the wave, such as lint rule names.
-     */
-    descriptor: string;
-
-    /**
      * Mutations to be applied to files, if any.
      */
     fileMutations?: IFileMutations;

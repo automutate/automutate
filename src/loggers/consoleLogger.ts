@@ -21,7 +21,7 @@ export class ConsoleLogger implements ILogger {
      * @param mutationsWave   A wave of file mutations.
      */
     public onWaveBegin(mutationsWave: IMutationsWave): void {
-        console.log(`Applying ${mutationsWave.descriptor}.`);
+        console.log(`Applying wave...`);
     }
 
     /**
@@ -30,6 +30,6 @@ export class ConsoleLogger implements ILogger {
      * @param mutationsWave   A wave of file mutations.
      */
     public onWaveEnd(mutationsWave: IMutationsWave): void {
-        console.log(`Applied ${mutationsWave.descriptor}...`);
+        console.log(`Applied wave.`);
     }
 }
