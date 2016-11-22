@@ -71,5 +71,3 @@ Mutators are also given the *original* file contents at construction time, which
 
 In order to be compatible with `automutate`, a linter must allow for some rules to report proposed fixes using the standard format.
 Once that is possible, it's a matter of creating a [mutations provider](https://github.com/autolint/automutate/blob/master/src/mutationsProvider.ts) that continuously retrieves these proposed fixes using the linter.
-
-*(example incoming - later today!)*
