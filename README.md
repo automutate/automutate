@@ -1,6 +1,6 @@
 # automutate
 
-*[Rough Draft]* Applies waves of mutations provided by other tools, such as linters.
+Applies waves of mutations provided by other tools, such as linters.
 
 There are [various](https://github.com/eslint/eslint) [linters](https://github.com/palantir/tslint) [in](https://github.com/stylelint/stylelint) [the](https://github.com/lesshint/lesshint) [world](https://github.com/sasstools/sass-lint) and most are adding or have added ways to `--fix` rule failures automatically.
 This is great but hard to do for a couple of reasons:
