@@ -36,12 +36,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/automutate/automutate.git"
+    "url": "git+https://github.com/autolint/automutate.git"
   },
   "keywords": [
     "lint",
-    "automutate",
-    "typescript",
+    "autolint",
     "linter",
     "clean",
     "code",
@@ -52,7 +51,7 @@
   "author": "joshuakgoldberg@outlook.com",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/automutate/automutate/issues"
+    "url": "https://github.com/autolint/automutate/issues"
   },
-  "homepage": "https://github.com/automutate/automutate#readme"
+  "homepage": "https://github.com/autolint/automutate#readme"
 }
