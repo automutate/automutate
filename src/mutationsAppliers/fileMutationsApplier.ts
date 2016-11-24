@@ -30,6 +30,7 @@ export class FileMutationsApplier extends MutationsApplier {
      */
     public constructor(logger: ILogger, settings: IFileMutationSettings = {}) {
         super(
+            logger,
             new FileProviderFactory(
                 (fileName: string): IFileProvider => new LocalFileProvider(fileName)),
             new MutatorFactory(

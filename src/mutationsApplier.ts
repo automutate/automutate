@@ -1,5 +1,6 @@
 import { IFileProvider } from "./fileProvider";
 import { IFileProviderFactory } from "./fileProviderFactory";
+import { ILogger } from "./logger";
 import { IMutation } from "./mutation";
 import { IFileMutations } from "./mutationsProvider";
 import { IMutatorFactory } from "./mutatorFactory";
@@ -31,6 +32,11 @@ export interface IMutationsApplier {
  */
 export class MutationsApplier implements IMutationsApplier {
     /**
+     * Generates output messages for significant operations.
+     */
+    private readonly logger: ILogger;
+
+    /**
      * Creates file providers for files.
      */
     private readonly fileProviderFactory: IFileProviderFactory;
@@ -43,10 +49,12 @@ export class MutationsApplier implements IMutationsApplier {
     /**
      * Initializes a new instance of the MutationsApplier class.
      * 
+     * @param logger   Generates output messages for significant operations.
      * @param fileProviderFactory   Creates file providers for files.
      * @param mutatorFactory   Creates mutators for mutations.
      */
-    public constructor(fileProviderFactory: IFileProviderFactory, mutatorFactory: IMutatorFactory) {
+    public constructor(logger: ILogger, fileProviderFactory: IFileProviderFactory, mutatorFactory: IMutatorFactory) {
+        this.logger = logger;
         this.fileProviderFactory = fileProviderFactory;
         this.mutatorFactory = mutatorFactory;
     }
@@ -63,6 +71,8 @@ export class MutationsApplier implements IMutationsApplier {
                 .map((fileName: string): Promise<void> => {
                     return this.applyFileMutations(fileName, mutations[fileName]);
                 }));
+
+        this.logger.onComplete();
     }
 
     /**
@@ -79,6 +89,7 @@ export class MutationsApplier implements IMutationsApplier {
 
         for (const mutation of mutationsOrdered) {
             fileContents = this.mutatorFactory.generateAndApply(fileContents, mutation);
+            this.logger.onMutation(fileName, mutation);
         }
 
         await fileProvider.write(fileContents);

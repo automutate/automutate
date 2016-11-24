@@ -26,7 +26,7 @@ export interface IMutatorFactory {
     /**
      * Generates and applied a mutator, if possible.
      * 
-     * @param fileName   Name of the file.
+     * @param fileContents   Contents of the file.
      * @param mutation   Mutation to be applied to the file.
      * @returns The mutated file contents.
      */
@@ -86,7 +86,7 @@ export class MutatorFactory implements IMutatorFactory {
     /**
      * Generates and applied a mutator, if possible.
      * 
-     * @param fileName   Name of the file.
+     * @param fileContents   Contents of the file.
      * @param mutation   Mutation to be applied to the file.
      * @returns The mutated file contents.
      */

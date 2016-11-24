@@ -1,10 +1,10 @@
 import * as path from "path";
 
 import { IMutationsApplier, MutationsApplier } from "../../lib/mutationsApplier";
-import { ConsoleLogger } from "../../lib/loggers/consoleLogger";
 import { IFileProvider } from "../../lib/fileProvider";
 import { FileProviderFactory } from "../../lib/fileProviderFactory";
 import { StubFileProvider } from "../../lib/fileProviders/stubFileProvider";
+import { ILogger, Logger } from "../../lib/logger";
 import { MutatorFactory } from "../../lib/mutatorFactory";
 import { IMutatorSearcher, MutatorSearcher } from "../../lib/mutatorSearcher";
 import { ITestCase } from "./testCase";
@@ -48,10 +48,12 @@ export class CaseRunner {
         const mutatorSearcher: IMutatorSearcher = new MutatorSearcher([
             path.join(__dirname, "../../lib/mutators")
         ]);
+        const stubLogger: ILogger = new Logger();
         const stubFileProvider: IFileProvider = new StubFileProvider(testCase.before);
         const mutationsApplier: IMutationsApplier = new MutationsApplier(
+            stubLogger,
             new FileProviderFactory((): IFileProvider => stubFileProvider),
-            new MutatorFactory(mutatorSearcher, new ConsoleLogger()));
+            new MutatorFactory(mutatorSearcher, stubLogger));
 
         // Act
         const actual: string = await mutationsApplier.applyFileMutations(
