@@ -1,6 +1,6 @@
 {
   "name": "automutate",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Generic framework to fix linting errors in code.",
   "index": "lib/index.js",
   "directories": {
