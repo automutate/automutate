@@ -36,13 +36,13 @@ export class TestsFactory {
     public create(casesPath: string): void {
         const caseNames: string[] = fs.readdirSync(casesPath);
 
-        for (const caseName of caseNames) {
-            describe(caseName, (): void => {
-                it("mutates correctly", async (): Promise<void> => {
+        describe("cases", (): void => {
+            for (const caseName of caseNames) {
+                it(caseName, async (): Promise<void> => {
                     return (await this.caseFactory.create(path.join(casesPath, caseName)))
                         .run();
                 });
-            });
-        }
+            }
+        });
     }
 }
