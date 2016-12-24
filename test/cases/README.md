@@ -5,9 +5,9 @@ These classes are provided as a convenience for packages that rely on `automutat
 `TestFactory`'s constructor takes in two arguments:
 
 1. A method to create a mutation provider for each file.
-2. The file extension to read files in test cases from.
+2. Names of files that test cases are composed of.
 
-Its `create` method takes in a a directory path containing test case directories.
+Its `describe` method takes in a a directory path containing test case directories.
 
 ## Sample Usage
 
@@ -29,7 +29,7 @@ import { TestsFactory } from "automutate/test/cases/testsFactory";
             settings: "settings.txt"
         });
 
-    await testsFactory.create(path.join(__dirname, "cases"));
+    await testsFactory.describe(path.join(__dirname, "cases"));
 })();
 
 ```

@@ -1,9 +1,8 @@
-import * as fs from "fs";
 import * as path from "path";
 
+import { AutoMutatorFactory, IMutationsProviderFactory } from "./autoMutatorFactory";
+import { CasesCrawler } from "./casesCrawler";
 import { ITestCaseSettings, TestCase } from "./testCase";
-import { IMutationsProviderFactory } from "./autoMutatorFactory";
-import { AutoMutatorFactory } from "./autoMutatorFactory";
 
 /**
  * Creates tests for provided cases.
@@ -20,6 +19,11 @@ export class TestsFactory {
     private readonly settings: ITestCaseSettings;
 
     /**
+     * Crawls a directory structure for test case settings.
+     */
+    private readonly casesCrawler: CasesCrawler;
+
+    /**
      * Initializes a new instance of the TestsFactory class.
      * 
      * @param mutationsProviderFactory   Creates test cases from test case settings.
@@ -28,24 +32,19 @@ export class TestsFactory {
     public constructor(mutationsProviderFactory: IMutationsProviderFactory, settings: ITestCaseSettings) {
         this.autoMutatorFactory = new AutoMutatorFactory(mutationsProviderFactory);
         this.settings = settings;
+        this.casesCrawler = new CasesCrawler(
+            this.settings.original,
+            (directoryName: string): Promise<void> => this.runTest(directoryName));
     }
 
     /**
-     * Creates tests for the a cases directory.
+     * Describes tests for the cases directory.
      * 
      * @param casesPath   Path to the test cases.
      * @returns A Promise for creating tests for the cases directory.
      */
-    public create(casesPath: string): void {
-        const caseNames: string[] = fs.readdirSync(casesPath);
-
-        describe("cases", (): void => {
-            for (const caseName of caseNames) {
-                it(caseName, (): Promise<void> => {
-                    return this.runTest(path.join(casesPath, caseName));
-                });
-            }
-        });
+    public describe(casesPath: string): void {
+        this.casesCrawler.crawl("cases", casesPath);
     }
 
     /**
