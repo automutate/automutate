@@ -11,7 +11,7 @@ Its `create` method takes in a a directory path containing test case directories
 
 ## Sample Usage
 
-Define a test file with TypeScript similar to the following:
+Define a test file with JavaScript or TypeScript similar to the following:
 
 ```typescript
 import * as path from "path";
@@ -21,11 +21,17 @@ import { TestsFactory } from "automutate/test/cases/testsFactory";
 
 (async (): Promise<void> => {
     const testsFactory = new TestsFactory(
-        fileName => new MyMutationsProvider(fileName),
-        ".txt");
+        (fileName, settingsFileName) => new MyMutationsProvider(fileName, settingsFileName)
+        {
+            actual: "actual.txt",
+            expected: "expected.txt",
+            original: "original.txt",
+            settings: "settings.txt"
+        });
 
     await testsFactory.create(path.join(__dirname, "cases"));
 })();
+
 ```
 
 Then, create a directory named `cases` with at least one sub-directory ("case").

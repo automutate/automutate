@@ -5,23 +5,28 @@ import { AutoMutator } from "../../lib/automutator";
 import { AutoMutatorFactory } from "./autoMutatorFactory";
 
 /**
- * Settings for a single test case.
+ * File names or contents for test cases.
  */
 export interface ITestCaseSettings {
     /**
-     * File path for the mutation result.
+     * File name or contents for the mutation result.
      */
     actual: string;
 
     /**
-     * File path for what the mutation result should be.
+     * File name or contents for what the mutation result should be.
      */
     expected: string;
 
     /**
-     * File path for the original file contents.
+     * File name or contents for the original file contents.
      */
     original: string;
+
+    /**
+     * File name or contents for the settings file.
+     */
+    settings: string;
 }
 
 /**
@@ -29,14 +34,14 @@ export interface ITestCaseSettings {
  */
 export class TestCase {
     /**
-     * Settings for the test case.
-     */
-    private readonly settings: ITestCaseSettings;
-
-    /**
      * Generates AutoMutator instances for testing.
      */
     private readonly autoMutatorFactory: AutoMutatorFactory;
+
+    /**
+     * Settings for the test case.
+     */
+    private readonly settings: ITestCaseSettings;
 
     /**
      * Initializes a new instance of the TestCase class.
@@ -53,13 +58,13 @@ export class TestCase {
      * Runs the test case.
      * 
      * @returns A Promise for running the test case.
-     * @todo Promise-ify this
+     * @todo Make this async (parallel)...
      */
     public async run(): Promise<void> {
         // Arrange
         await this.arrangeFiles();
-        const autoMutator: AutoMutator = this.autoMutatorFactory.create(this.settings.actual);
         const expectedContents: string = fs.readFileSync(this.settings.expected).toString();
+        const autoMutator: AutoMutator = this.autoMutatorFactory.create(this.settings.actual, this.settings.settings);
 
         // Act
         await autoMutator.run();
@@ -70,20 +75,12 @@ export class TestCase {
     }
 
     /**
-     * Resets the expected file to the original file contents.
+     * Resets the test case files.
      * 
-     * @returns A Promise for resetting the expected file.
-     * @todo How to react to the reader finishing piping?
+     * @returns A Promise for the resetting the test case files.
+     * @todo Make this async (parallel)...
      */
-    private arrangeFiles(): Promise<void> {
-        return new Promise<void>(resolve => {
-            const reader = fs.createReadStream(this.settings.original);
-
-            reader.on("close", resolve);
-
-            reader.pipe(fs.createWriteStream(this.settings.actual));
-
-            setTimeout(() => reader.close(), 100);
-        });
+    private async arrangeFiles(): Promise<void> {
+        fs.writeFileSync(this.settings.actual, fs.readFileSync(this.settings.original));
     }
 }

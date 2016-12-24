@@ -7,14 +7,15 @@ import { IMutationsProvider } from "../../lib/mutationsProvider";
  * Creates mutation providers for files.
  * 
  * @param fileName   Name of a file to mutate.
+ * @param settingsFileName   Name of its settings file, if any.
  * @returns A mutation provider for the file.
  */
 export interface IMutationsProviderFactory {
-    (fileName: string): IMutationsProvider;
+    (fileName: string, settingsFileName?: string): IMutationsProvider;
 }
 
 /**
- * Generates AutoMutator instances for testing.
+ * Creates AutoMutators for testing.
  */
 export class AutoMutatorFactory {
     /**
@@ -32,15 +33,18 @@ export class AutoMutatorFactory {
     }
 
     /**
-     * @param Name of a .less file to automutate.
+     * Creates an AutoMutator for testing.
+     * 
+     * @param fileName   Name of a .less file to automutate.
+     * @param settingsFileName   Name of its settings file, if any.
      * @returns A new AutoMutator for testing.
      */
-    public create(fileName: string) {
+    public create(fileName: string, settingsFileName?: string) {
         const logger = new Logger();
 
         return new AutoMutator(
             new FileMutationsApplier(logger),
-            this.mutationsProviderFactory(fileName),
+            this.mutationsProviderFactory(fileName, settingsFileName),
             logger);
     }
 }
