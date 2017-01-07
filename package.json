@@ -1,6 +1,6 @@
 {
   "name": "automutate",
-  "version": "0.3.3",
+  "version": "0.4.0",
   "description": "Applies waves of mutations provided by other tools, such as linters.",
   "index": "lib/index.js",
   "directories": {
@@ -46,6 +46,7 @@
     "code",
     "quality",
     "tslint",
+    "lesshint",
     "eslint"
   ],
   "author": "joshuakgoldberg@outlook.com",
