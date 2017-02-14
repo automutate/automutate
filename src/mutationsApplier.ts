@@ -68,8 +68,8 @@ export class MutationsApplier implements IMutationsApplier {
     public async apply(mutations: IFileMutations): Promise<void> {
         await Promise.all(
             Object.keys(mutations)
-                .map((fileName: string): Promise<void> => {
-                    return this.applyFileMutations(fileName, mutations[fileName]);
+                .map(async (fileName: string): Promise<void> => {
+                    await this.applyFileMutations(fileName, mutations[fileName]);
                 }));
 
         this.logger.onComplete();
