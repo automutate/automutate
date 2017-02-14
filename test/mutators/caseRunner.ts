@@ -50,10 +50,11 @@ export class CaseRunner {
         ]);
         const stubLogger: ILogger = new Logger();
         const stubFileProvider: IFileProvider = new StubFileProvider(testCase.before);
-        const mutationsApplier: IMutationsApplier = new MutationsApplier(
-            stubLogger,
-            new FileProviderFactory((): IFileProvider => stubFileProvider),
-            new MutatorFactory(mutatorSearcher, stubLogger));
+        const mutationsApplier: IMutationsApplier = new MutationsApplier({
+            logger: stubLogger,
+            fileProviderFactory: new FileProviderFactory((): IFileProvider => stubFileProvider),
+            mutatorFactory: new MutatorFactory(mutatorSearcher, stubLogger)
+        });
 
         // Act
         const actual: string = await mutationsApplier.applyFileMutations(

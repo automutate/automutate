@@ -11,7 +11,12 @@ import { MutatorSearcher } from "../mutatorSearcher";
 /**
  * Settings to apply individual waves of file mutations to local files.
  */
-export interface IFileMutationSettings {
+export interface IFileMutationsApplierSettings {
+    /**
+     * Generates output messages for significant operations.
+     */
+    logger: ILogger;
+
     /**
      * Additional directories to search for mutators within.
      */
@@ -25,19 +30,19 @@ export class FileMutationsApplier extends MutationsApplier {
     /**
      * Initializes a new instance of the FileMutationsApplier class.
      * 
-     * @param logger   Generates output messages for significant operations.
-     * @param fileSettings   Settings for manipulating local files.
+     * @param settings   Settings to be used for initialization.
      */
-    public constructor(logger: ILogger, settings: IFileMutationSettings = {}) {
-        super(
-            logger,
-            new FileProviderFactory(
+    public constructor(settings: IFileMutationsApplierSettings) {
+        super({
+            logger: settings.logger,
+            fileProviderFactory: new FileProviderFactory(
                 (fileName: string): IFileProvider => new LocalFileProvider(fileName)),
-            new MutatorFactory(
+            mutatorFactory: new MutatorFactory(
                 new MutatorSearcher([
                     path.join(__dirname, "../../lib/mutators"),
                     ...(settings.mutatorDirectories || [])
                 ]),
-                logger));
+                settings.logger)
+        });
     }
 }

@@ -1,6 +1,28 @@
 import { ILogger } from "./logger";
+import { ConsoleLogger } from "./loggers/consoleLogger";
 import { IMutationsApplier } from "./mutationsApplier";
+import { FileMutationsApplier } from "./mutationsAppliers/fileMutationsApplier";
 import { IMutationsProvider, IMutationsWave } from "./mutationsProvider";
+
+/**
+ * Settings to initialize a new IAutoMutator.
+ */
+export interface IAutoMutatorSettings {
+    /**
+     * Applies individual waves of file mutations.
+     */
+    mutationsApplier?: IMutationsApplier;
+
+    /**
+     * Provides waves of file mutations.
+     */
+    mutationsProvider: IMutationsProvider;
+
+    /**
+     * Generates output messages for significant operations.
+     */
+    logger?: ILogger;
+}
 
 /**
  * Runs waves of file mutations.
@@ -36,13 +58,14 @@ export class AutoMutator implements IAutoMutator {
     /**
      * Initializes a new instance of the AutoMutator class.
      * 
-     * @param mutationsApplier   Applies individual waves of file mutations.
-     * @param mutationsProvider   Provides waves of file mutations.
+     * @param settings   Settings to be used for initialization.
      */
-    constructor(mutationsApplier: IMutationsApplier, mutationsProvider: IMutationsProvider, logger: ILogger) {
-        this.mutationsApplier = mutationsApplier;
-        this.mutationsProvider = mutationsProvider;
-        this.logger = logger;
+    constructor(settings: IAutoMutatorSettings) {
+        this.logger = settings.logger || new ConsoleLogger();
+        this.mutationsApplier = settings.mutationsApplier || new FileMutationsApplier({
+            logger: this.logger
+        });
+        this.mutationsProvider = settings.mutationsProvider;
     }
 
     /**

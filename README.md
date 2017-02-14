@@ -1,4 +1,5 @@
 # automutate
+[![npm](https://img.shields.io/npm/v/automutate.svg)](https://www.npmjs.com/package/automutate)
 
 Applies waves of mutations provided by other tools, such as linters.
 
@@ -65,10 +66,10 @@ The default logic searches for these in user-provided directories under their `c
 Each mutator class is specific to a single type of mutation, and each mutator instance is specific to a file.
 Calls to `mutate` are given the current file contents as a string, along with the mutation to be applied, and return the file contents after the mutation.
 
-Mutators are also given the *original* file contents at construction time, which allows for custom mutators to perform setup logic (for example, a language's linter creating an abstract syntax tree for the file).
+Mutators are also given the *original* file contents at construction time, which allows for custom mutators to perform setup logic.
+For example, a language's linter might create an abstract syntax tree for the file.
 
 
 # Project Onboarding
 
-In order to be compatible with `automutate`, a linter must allow for some rules to report proposed fixes using the standard format.
-Once that is possible, it's a matter of creating a [mutations provider](https://github.com/autolint/automutate/blob/master/src/mutationsProvider.ts) that continuously retrieves these proposed fixes using the linter.
+See [Onboarding](docs/onboarding.md).
