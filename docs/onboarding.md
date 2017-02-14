@@ -14,7 +14,7 @@ Expose a single class or function that runs linting logic.
 It should be possible to import and run it directly.
 
 If your linter is only runnable via a CLI, you'll need to execute a CLI process and capture its output.
-That's doable but messy and inefficient.
+That's doable but but messy and inefficient.
 
 ### Reporting Suggestions
 
@@ -22,7 +22,7 @@ Automutate works best when it does the least.
 Have your linter provide fix suggestions in some format so that all your autolinter needs to do is convert them to waves of `IMutation`s.
 
 If your linter does not yet provide fix suggestions, you'll need to write converter logic to generate `IMutation`s from the lint output.
-That's doable carries two major downsides:
+That's doable but carries two major downsides:
 * Your logic will be at risk getting out of sync.
     * If your linter is updated to produce different output, you'll need to separately update the converter logic.
     * Users may not know they need to update their autolinter along with your linter, and end up with bad autolinting.
@@ -53,12 +53,12 @@ export class MyAutoMutator extends AutoMutator {
 ### `IMutationsProvider`
 
 An `IMutationsProvider` must implement a `provide()` method that returns a `Promise` for an `IMutationsWave`.
-See (../src/mutationsProvider.ts) for the interface definitions.
+See [`mutationsProvider.ts`](../src/mutationsProvider.ts) for the interface definitions.
 
 `provide` will be called continuously until its result doesn't contain a `fileMutations` member.
 This is where the bulk of your logic will live.
 
-A simple provider that adds a `":)\n"` to the top of a file would look something like:
+A simple provider that adds a `:)\n` string to the top of a file would look something like:
 
 ```javascript
 import * as fs from "mz/fs";
