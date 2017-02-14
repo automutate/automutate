@@ -6,6 +6,26 @@ import { IFileMutations } from "./mutationsProvider";
 import { IMutatorFactory } from "./mutatorFactory";
 
 /**
+ * Settings to initialize a new IMutationsApplier.
+ */
+export interface IMutationsApplierSettings {
+    /**
+     * Generates output messages for significant operations.
+     */
+    logger: ILogger;
+
+    /**
+     * Creates file providers for files.
+     */
+    fileProviderFactory: IFileProviderFactory;
+
+    /**
+     * Creates mutators for mutations.
+     */
+    mutatorFactory: IMutatorFactory;
+}
+
+/**
  * Applies individual waves of file mutations.
  */
 export interface IMutationsApplier {
@@ -49,14 +69,12 @@ export class MutationsApplier implements IMutationsApplier {
     /**
      * Initializes a new instance of the MutationsApplier class.
      * 
-     * @param logger   Generates output messages for significant operations.
-     * @param fileProviderFactory   Creates file providers for files.
-     * @param mutatorFactory   Creates mutators for mutations.
+     * @param settings   Settings to be used for initialization.
      */
-    public constructor(logger: ILogger, fileProviderFactory: IFileProviderFactory, mutatorFactory: IMutatorFactory) {
-        this.logger = logger;
-        this.fileProviderFactory = fileProviderFactory;
-        this.mutatorFactory = mutatorFactory;
+    public constructor(settings: IMutationsApplierSettings) {
+        this.logger = settings.logger;
+        this.fileProviderFactory = settings.fileProviderFactory;
+        this.mutatorFactory = settings.mutatorFactory;
     }
 
     /**
