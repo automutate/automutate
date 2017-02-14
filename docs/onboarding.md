@@ -1,5 +1,10 @@
 # Onboarding
 
+Automutate works by repeatedly running a "provider" that generates mutation suggestions.
+It will keep running until no more suggestions are provided.
+
+That provider is typically a thin wrapper around an external tool such as a linter.
+
 **Any linter can be onboarded onto Automutate**.
 
 
