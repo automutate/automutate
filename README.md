@@ -73,3 +73,5 @@ For example, a language's linter might create an abstract syntax tree for the fi
 # Project Onboarding
 
 See [Onboarding](docs/onboarding.md).
+
+`automutate` requires NodeJS >= 5.

@@ -1,0 +1,9 @@
+language: node_js
+
+node_js:
+  - "7.0"
+  - "6.0"
+  - "5.0"
+
+script:
+  node_modules/gulp/bin/gulp.js

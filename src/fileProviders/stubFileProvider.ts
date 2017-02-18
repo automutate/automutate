@@ -35,6 +35,6 @@ export class StubFileProvider implements IFileProvider {
      */
     public write(contents: string): Promise<void> {
         this.contents = contents;
-        return Promise.resolve();
+        return Promise.resolve<void>();
     }
 }
