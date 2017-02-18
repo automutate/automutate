@@ -83,9 +83,9 @@ export class Logger implements ILogger {
     /**
      * Logs that an unknown mutator was requested.
      * 
-     * @param mutation   The requesting mutation.
+     * @param _mutation   The requesting mutation.
      */
-    public onUnknownMutationType(mutation: IMutation): void { }
+    public onUnknownMutationType(_mutation: IMutation): void { }
 
     /**
      * Logs that a muations wave is about to start.
@@ -99,9 +99,9 @@ export class Logger implements ILogger {
     /**
      * Logs that a muations wave finished.
      * 
-     * @param mutationsWave   A wave of file mutations.
+     * @param _mutationsWave   A wave of file mutations.
      */
-    public onWaveEnd(mutationsWave: IMutationsWave): void { }
+    public onWaveEnd(_mutationsWave: IMutationsWave): void { }
 
     /**
      * @returns Mutations applied to each file, keyed by file name.

@@ -40,8 +40,8 @@ export class LocalFileProvider implements IFileProvider {
      * @param contents   New contents of the file.
      * @returns A Promise for writing to the file.
      */
-    public write(contents: string): Promise<void> {
-        return new Promise((resolve, reject): void => {
+    public async write(contents: string): Promise<void> {
+        await new Promise((resolve, reject): void => {
             fs.writeFile(this.fileName, contents, (error: Error): void => {
                 error ? reject(error) : resolve();
             });

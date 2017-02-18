@@ -1,17 +1,13 @@
 {
+    "extends": "../tsconfig.json",
     "compilerOptions": {
-        "module": "commonjs",
-        "noFallthroughCasesInSwitch": false,
-        "noImplicitAny": true,
-        "noImplicitThis": true,
-        "noImplicitReturns": true,
-        "noUnusedParameters": true,
-        "noUnusedLocals": true,
-        "strictNullChecks": true,
-        "target": "es6"
+        "declaration": false,
+        "target": "es5"
     },
     "exclude": [
-        "end-to-end/rules/**/*",
-        "../src/**/*.ts"
+        "end-to-end/rules/**/*"
+    ],
+    "include": [
+        "**/*.ts"
     ]
 }
