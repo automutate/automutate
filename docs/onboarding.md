@@ -46,12 +46,10 @@ import { AutoMutator } from "automutate/lib/automutator";
 
 import { SmileyMutationsProvider } from "./smileyMutationsProvider";
 
-export class MyAutoMutator extends AutoMutator {
-    public constructor() {
-        super({
-            mutationsProvider: new SmileyMutationsProvider()
-        });
-    }
+export function createMyAutomutator() {
+    return new AutoMutator({
+        mutationsProvider: new SmileyMutationsProvider()
+    });
 }
 ```
 
