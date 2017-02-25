@@ -36,7 +36,7 @@ That's doable but carries two major downsides:
 
 ## Technical Implementation
 
-Automutation is driven by an instance of the [`Automutator` class](../src/autoMutator.ts).
+Automutation is driven by an instance of the [`AutoMutator` class](../src/autoMutator.ts).
 It requires an [`IMutationsProvider`](../src/mutationsProvider.ts) to generate suggestions that will be applied to files.
 
 A base setup would look something like:
@@ -44,12 +44,12 @@ A base setup would look something like:
 ```javascript
 import { AutoMutator } from "automutate/lib/automutator";
 
-import { MyMutationsProvider } from "./myMutationsProvider";
+import { SmileyMutationsProvider } from "./smileyMutationsProvider";
 
 export class MyAutoMutator extends AutoMutator {
     public constructor() {
         super({
-            mutationsProvider: new MyMutationsProvider()
+            mutationsProvider: new SmileyMutationsProvider()
         });
     }
 }
@@ -58,7 +58,7 @@ export class MyAutoMutator extends AutoMutator {
 ### `IMutationsProvider`
 
 An `IMutationsProvider` must implement a `provide()` method that returns a `Promise` for an `IMutationsWave`.
-See [`mutationsProvider.ts`](../src/mutationsProvider.ts) for the interface definitions.
+See [Internals](internals.md) for documentation and [`mutationsProvider.ts`](../src/mutationsProvider.ts) for the interface definitions.
 
 `provide` will be called continuously until its result doesn't contain a `fileMutations` member.
 This is where the bulk of your logic will live.
@@ -70,7 +70,7 @@ import * as fs from "mz/fs";
 
 const smiley = ":)\n";
 
-export class MyMutationsProvider {
+export class SmileyMutationsProvider {
     provide() {
         return fs.readFile("my-file.txt")
             .then(data => this.generateMutations(data.toString()));
@@ -88,7 +88,7 @@ export class MyMutationsProvider {
                     range: {
                         begin: 0
                     },
-                    type: "text-add"
+                    type: "text-insert"
                 }
             ]
         };

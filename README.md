@@ -9,7 +9,6 @@ This is great but hard to do for a couple of reasons:
 * **Code bloat verses duplication** - Most linters either provide hooks to apply fixes themselves (which can result in code bloat) or have an external project (which duplicates logic for finding rules).
 
 `automutate` proposes that linters only propose **how** to fix rules, via a standardized JSON format.
-A linter-specific utility can request waves of these fixes to be passed into `automutate`.
 
 Having a standardized source-agnostic project to apply mutations brings a couple of benefits:
 * **Reduced overhead** - Projects no longer need to do this work themselves.
@@ -17,6 +16,23 @@ Having a standardized source-agnostic project to apply mutations brings a couple
 
 In general, *detecting* rule failures is a separate concern from *fixing* them.
 Linters need to run quickly over a read-only set of files, often during built processes, while fixers typically run slowly and modify files on user request.
+
+
+## How it works
+
+The main `automutate` algorithm is started in [`autoMutator.ts`](../src/autoMutator.ts) and mostly applied in [`mutationsApplier.ts`](../src/mutationsApplier.ts):
+
+```python
+while mutationsWave = getMutationsWave():
+    for (file, fileMutations) of groupMutationsByFile(mutationsWave):
+        for mutation of getNonOverlappingMutationsInReverse(fileMutations):
+            applyMutation(file, mutation)
+```
+
+1. `getMutationsWave` calls to an external tool, such as a linter, to receive a wave of suggested mutations.
+2. `groupMutationsByFile` organizes the suggested mutations by file.
+3. `getNonOverlappingMutationsInReverse` removes overlapping mutations that would conflict with each other, and sorts the remainder in reverse order so that later mutations don't interfere with character positions of earlier mutations.
+4. `applyMutation`  modifies files on disk using the remaining mutations.
 
 
 ## Mutations
@@ -56,18 +72,7 @@ For example:
 Linter-specific utilities may define their own mutations.
 For example, a language's linter may define a `node-rename` mutation rather than use a `multiple` mutation containing `text-swap` mutations.
 
-
-## Mutators
-
-Each mutation is tied to an implementation of the abstract [`Mutator`](https://github.com/autolint/automutate/blob/master/src/mutator.ts) class by name.
-The default logic searches for these in user-provided directories under their `camelCase` name appended with `"Mutator"`.
-`text-insert`, for example, would be matched to `mutators/testInsertMutator.js`.
-
-Each mutator class is specific to a single type of mutation, and each mutator instance is specific to a file.
-Calls to `mutate` are given the current file contents as a string, along with the mutation to be applied, and return the file contents after the mutation.
-
-Mutators are also given the *original* file contents at construction time, which allows for custom mutators to perform setup logic.
-For example, a language's linter might create an abstract syntax tree for the file.
+See [Mutators](docs/mutators.md) for more on custom mutators.
 
 
 # Project Onboarding

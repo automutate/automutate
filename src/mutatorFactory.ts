@@ -24,7 +24,7 @@ export interface IMutatorFactory {
     generate<TMutator extends Mutator>(name: string, fileContents: string): TMutator | undefined;
 
     /**
-     * Generates and applied a mutator, if possible.
+     * Generates and applies a mutator, if possible.
      * 
      * @param fileContents   Contents of the file.
      * @param mutation   Mutation to be applied to the file.
