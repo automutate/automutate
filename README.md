@@ -22,7 +22,7 @@ Linters need to run quickly over a read-only set of files, often during built pr
 
 The main `automutate` algorithm is started in [`autoMutator.ts`](../src/autoMutator.ts) and mostly applied in [`mutationsApplier.ts`](../src/mutationsApplier.ts):
 
-```python
+```swift
 while mutationsWave = getMutationsWave():
     for (file, fileMutations) of groupMutationsByFile(mutationsWave):
         for mutation of getNonOverlappingMutationsInReverse(fileMutations):
@@ -79,4 +79,4 @@ See [Mutators](docs/mutators.md) for more on custom mutators.
 
 See [Onboarding](docs/onboarding.md).
 
-`automutate` requires NodeJS >= 5.
+`automutate` requires NodeJS >= 4.
