@@ -56,7 +56,7 @@ export function createMyAutomutator() {
 ### `IMutationsProvider`
 
 An `IMutationsProvider` must implement a `provide()` method that returns a `Promise` for an `IMutationsWave`.
-See [Internals](internals.md) for documentation and [`mutationsProvider.ts`](../src/mutationsProvider.ts) for the interface definitions.
+See [`mutationsProvider.ts`](../src/mutationsProvider.ts) for the interface definitions.
 
 `provide` will be called continuously until its result doesn't contain a `fileMutations` member.
 This is where the bulk of your logic will live.
