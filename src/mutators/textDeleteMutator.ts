@@ -17,7 +17,7 @@ export interface ITextDeleteMutation extends IMutation {
 export class TextDeleteMutator extends Mutator {
     /**
      * Applies a mutation.
-     * 
+     *
      * @param fileContents   Current contents of the file.
      * @param mutation   Mutation to apply.
      * @returns File contents after applying the mutation.
@@ -25,7 +25,7 @@ export class TextDeleteMutator extends Mutator {
     public mutate(fileContents: string, mutation: ITextDeleteMutation): string {
         return [
             fileContents.substring(0, mutation.range.begin),
-            fileContents.substring(mutation.range.end || mutation.range.begin)
+            fileContents.substring(mutation.range.end || mutation.range.begin),
         ].join("");
     }
 }

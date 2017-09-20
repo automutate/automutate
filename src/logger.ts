@@ -19,7 +19,7 @@ export interface ILogger {
 
     /**
      * Logs that a mutation was applied.
-     * 
+     *
      * @param fileName   Name of the file to be mutated.
      * @param mutation   The requesting mutation.
      */
@@ -27,21 +27,21 @@ export interface ILogger {
 
     /**
      * Logs that an unknown mutator was requested.
-     * 
+     *
      * @param mutation   The requesting mutation of unknown type.
      */
     onUnknownMutationType(mutation: IMutation): void;
 
     /**
      * Logs that a muations wave is about to start.
-     * 
+     *
      * @param mutationsWave   A wave of file mutations.
      */
     onWaveBegin(mutationsWave: IMutationsWave): void;
 
     /**
      * Logs that a muations wave finished.
-     * 
+     *
      * @param mutationsWave   A wave of file mutations.
      */
     onWaveEnd(mutationsWave: IMutationsWave): void;
@@ -64,11 +64,11 @@ export class Logger implements ILogger {
     /**
      * Logs that mutations have completed.
      */
-    public onComplete(): void { }
+    public onComplete(): void {/* ... */}
 
     /**
      * Logs that a mutation was applied.
-     * 
+     *
      * @param fileName   Name of the file to be mutated.
      * @param mutation   The requesting mutation.
      */
@@ -82,14 +82,14 @@ export class Logger implements ILogger {
 
     /**
      * Logs that an unknown mutator was requested.
-     * 
+     *
      * @param _mutation   The requesting mutation.
      */
-    public onUnknownMutationType(_mutation: IMutation): void { }
+    public onUnknownMutationType(_mutation: IMutation): void {/* ... */}
 
     /**
      * Logs that a muations wave is about to start.
-     * 
+     *
      * @param mutationsWave   A wave of file mutations.
      */
     public onWaveBegin(mutationsWave: IMutationsWave): void {
@@ -98,12 +98,14 @@ export class Logger implements ILogger {
 
     /**
      * Logs that a muations wave finished.
-     * 
+     *
      * @param _mutationsWave   A wave of file mutations.
      */
-    public onWaveEnd(_mutationsWave: IMutationsWave): void { }
+    public onWaveEnd(_mutationsWave: IMutationsWave): void {/* ... */}
 
     /**
+     * Gets file mutations for each file.
+     *
      * @returns Mutations applied to each file, keyed by file name.
      */
     protected getFileMutations(): IFileMutations {
@@ -111,6 +113,8 @@ export class Logger implements ILogger {
     }
 
     /**
+     * Gets waves of file mutations.
+     *
      * @returns Waves of file mutations.
      */
     protected getMutationsWaves(): IMutationsWave[] {

@@ -4,7 +4,7 @@
 export interface INameTransformer {
     /**
      * Transforms a dashed-case name to camelCase.
-     * 
+     *
      * @param name   A dashed-case name.
      * @returns The name as camelCase.
      */
@@ -12,7 +12,7 @@ export interface INameTransformer {
 
     /**
      * Transforms a dashed-case name to PamelCase.
-     * 
+     *
      * @param name   A dashed-case name.
      * @returns The name as PascalCase.
      */
@@ -25,7 +25,7 @@ export interface INameTransformer {
 export class NameTransformer implements INameTransformer {
     /**
      * Transforms a dashed-case name to camelCase.
-     * 
+     *
      * @param name   A dashed-case name.
      * @returns The name as camelCase.
      */
@@ -34,23 +34,21 @@ export class NameTransformer implements INameTransformer {
 
         return split[0].toLowerCase() + split
             .slice(1)
-            .map((part: string): string => {
-                return part.substring(0, 1).toUpperCase() + part.substring(1).toLowerCase();
-            })
+            .map((part: string): string =>
+                part.substring(0, 1).toUpperCase() + part.substring(1).toLowerCase())
             .join("");
     }
 
     /**
      * Transforms a dashed-case name to PamelCase.
-     * 
+     *
      * @param name   A dashed-case name.
      * @returns The name as PascalCase.
      */
     public toPascalCase(name: string): string {
         return name.split("-")
-            .map((part: string): string => {
-                return part.substring(0, 1).toUpperCase() + part.substring(1).toLowerCase();
-            })
+            .map((part: string): string =>
+                part.substring(0, 1).toUpperCase() + part.substring(1).toLowerCase())
             .join("");
     }
 }

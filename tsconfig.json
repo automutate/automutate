@@ -11,7 +11,7 @@
         "noUnusedParameters": true,
         "outDir": "lib",
         "sourceMap": true,
-        "strictNullChecks": true,
+        "strict": true,
         "target": "es3"
     },
     "exclude": [

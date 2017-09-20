@@ -23,7 +23,7 @@ export interface IMultipleMutations extends IMutation {
 export class MultipleMutator extends Mutator {
     /**
      * Applies a mutation.
-     * 
+     *
      * @param fileContents   Current contents of the file.
      * @param mutation   Mutation to apply.
      * @returns File contents after applying the mutation.

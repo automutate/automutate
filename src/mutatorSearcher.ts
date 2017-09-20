@@ -7,7 +7,7 @@ import { NameTransformer } from "./nameTransformer";
 /**
  * Suffix appended to all mutator classes.
  */
-const mutatorClassSuffix: string = "Mutator";
+const mutatorClassSuffix = "Mutator";
 
 /**
  * Searches for mutator classes.
@@ -15,7 +15,7 @@ const mutatorClassSuffix: string = "Mutator";
 export interface IMutatorSearcher {
     /**
      * Searches for a mutator sub-class within the directories.
-     * 
+     *
      * @param name   Dashed-case name of the mutator sub-class.
      * @returns The mutator sub-class, if it can be found.
      */
@@ -48,7 +48,7 @@ export class MutatorSearcher implements IMutatorSearcher {
 
     /**
      * Initializes a new instance of the MutatorSearcher class.
-     * 
+     *
      * @param nameTransformer  Transforms dashed-case names to camelCase.
      * @param directories   Directories to search within.
      */
@@ -59,7 +59,7 @@ export class MutatorSearcher implements IMutatorSearcher {
 
     /**
      * Searches for a mutator sub-class within the directories.
-     * 
+     *
      * @param name   Dashed-case name of the mutator sub-class.
      * @returns The mutator sub-class, if it can be found.
      */
@@ -67,9 +67,12 @@ export class MutatorSearcher implements IMutatorSearcher {
         const camelCaseName: string = this.nameTransformer.toCamelCase(name);
 
         for (const directory of this.directories) {
-            const joinedPath: string = path.join(directory, camelCaseName + mutatorClassSuffix + ".js");
+            const joinedPath: string = path.join(
+                directory,
+                `${camelCaseName}${mutatorClassSuffix}.js`);
 
             if (fs.existsSync(joinedPath)) {
+                // tslint:disable-next-line:no-require-imports
                 return require(joinedPath)[this.nameTransformer.toPascalCase(name) + mutatorClassSuffix];
             }
         }

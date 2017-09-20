@@ -1,9 +1,9 @@
 import * as path from "path";
 
-import { ILogger } from "../logger";
-import { FileProviderFactory } from "../fileProviderFactory";
 import { IFileProvider } from "../fileProvider";
+import { FileProviderFactory } from "../fileProviderFactory";
 import { LocalFileProvider } from "../fileProviders/localFileProvider";
+import { ILogger } from "../logger";
 import { MutationsApplier } from "../mutationsApplier";
 import { MutatorFactory } from "../mutatorFactory";
 import { MutatorSearcher } from "../mutatorSearcher";
@@ -29,20 +29,20 @@ export interface IFileMutationsApplierSettings {
 export class FileMutationsApplier extends MutationsApplier {
     /**
      * Initializes a new instance of the FileMutationsApplier class.
-     * 
+     *
      * @param settings   Settings to be used for initialization.
      */
     public constructor(settings: IFileMutationsApplierSettings) {
         super({
-            logger: settings.logger,
             fileProviderFactory: new FileProviderFactory(
                 (fileName: string): IFileProvider => new LocalFileProvider(fileName)),
+            logger: settings.logger,
             mutatorFactory: new MutatorFactory(
                 new MutatorSearcher([
                     path.join(__dirname, "../../lib/mutators"),
-                    ...(settings.mutatorDirectories || [])
+                    ...(settings.mutatorDirectories || []),
                 ]),
-                settings.logger)
+                settings.logger),
         });
     }
 }

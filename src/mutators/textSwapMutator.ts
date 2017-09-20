@@ -22,7 +22,7 @@ export interface ITextSwapMutation extends IMutation {
 export class TextSwapMutator extends Mutator {
     /**
      * Applies a mutation.
-     * 
+     *
      * @param fileContents   Current contents of the file.
      * @param mutation   Mutation to apply.
      * @returns File contents after applying the mutation.
@@ -31,7 +31,7 @@ export class TextSwapMutator extends Mutator {
         return [
             fileContents.substring(0, mutation.range.begin),
             mutation.insertion,
-            fileContents.substring(mutation.range.end || mutation.range.begin)
+            fileContents.substring(mutation.range.end || mutation.range.begin),
         ].join("");
     }
 }

@@ -9,7 +9,7 @@ interface IFileProviders {
 
 /**
  * Creates new file providers for files.
- * 
+ *
  * @param fileName   Name of the file.
  * @returns A file provider for the file.
  */
@@ -23,7 +23,7 @@ export interface ICreateFileProvider {
 export interface IFileProviderFactory {
     /**
      * Retrieves the file provider for a file.
-     * 
+     *
      * @param fileName   Name of the file.
      * @returns The file provider for the file.
      */
@@ -46,7 +46,7 @@ export class FileProviderFactory implements IFileProviderFactory {
 
     /**
      * Initializes a new instance of the FileProviderFactory class.
-     * 
+     *
      * @param createFileProvider   Creates new file providers for files.
      */
     public constructor(createFileProvider: ICreateFileProvider) {
@@ -55,7 +55,7 @@ export class FileProviderFactory implements IFileProviderFactory {
 
     /**
      * Retrieves the file provider for a file.
-     * 
+     *
      * @param fileName   Name of the file.
      * @returns The file provider for the file.
      */

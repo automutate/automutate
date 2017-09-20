@@ -9,6 +9,11 @@ import { IMutationsProvider, IMutationsWave } from "./mutationsProvider";
  */
 export interface IAutoMutatorSettings {
     /**
+     * Generates output messages for significant operations.
+     */
+    logger?: ILogger;
+
+    /**
      * Applies individual waves of file mutations.
      */
     mutationsApplier?: IMutationsApplier;
@@ -17,11 +22,6 @@ export interface IAutoMutatorSettings {
      * Provides waves of file mutations.
      */
     mutationsProvider: IMutationsProvider;
-
-    /**
-     * Generates output messages for significant operations.
-     */
-    logger?: ILogger;
 }
 
 /**
@@ -30,7 +30,7 @@ export interface IAutoMutatorSettings {
 export interface IAutoMutator {
     /**
      * Runs waves of file mutations.
-     * 
+     *
      * @returns A Promise for the waves completing.
      */
     run(): Promise<void>;
@@ -40,6 +40,11 @@ export interface IAutoMutator {
  * Runs waves of file mutations.
  */
 export class AutoMutator implements IAutoMutator {
+    /**
+     * Generates output messages for significant operations.
+     */
+    private readonly logger: ILogger;
+
     /**
      * Applies individual waves of file mutations.
      */
@@ -51,30 +56,26 @@ export class AutoMutator implements IAutoMutator {
     private readonly mutationsProvider: IMutationsProvider;
 
     /**
-     * Generates output messages for significant operations.
-     */
-    private readonly logger: ILogger;
-
-    /**
      * Initializes a new instance of the AutoMutator class.
-     * 
+     *
      * @param settings   Settings to be used for initialization.
      */
-    constructor(settings: IAutoMutatorSettings) {
+    public constructor(settings: IAutoMutatorSettings) {
         this.logger = settings.logger || new ConsoleLogger();
         this.mutationsApplier = settings.mutationsApplier || new FileMutationsApplier({
-            logger: this.logger
+            logger: this.logger,
         });
         this.mutationsProvider = settings.mutationsProvider;
     }
 
     /**
      * Runs waves of file mutations.
-     * 
+     *
      * @returns A Promise for the waves completing.
      */
     public async run(): Promise<void> {
         while (true) {
+            // tslint:disable:no-console
             const mutationsWave: IMutationsWave = await this.mutationsProvider.provide();
             if (!mutationsWave.fileMutations) {
                 break;

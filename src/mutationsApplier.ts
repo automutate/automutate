@@ -10,14 +10,14 @@ import { IMutatorFactory } from "./mutatorFactory";
  */
 export interface IMutationsApplierSettings {
     /**
-     * Generates output messages for significant operations.
-     */
-    logger: ILogger;
-
-    /**
      * Creates file providers for files.
      */
     fileProviderFactory: IFileProviderFactory;
+
+    /**
+     * Generates output messages for significant operations.
+     */
+    logger: ILogger;
 
     /**
      * Creates mutators for mutations.
@@ -31,7 +31,7 @@ export interface IMutationsApplierSettings {
 export interface IMutationsApplier {
     /**
      * Applies an iteration of file mutations.
-     * 
+     *
      * @param mutations   Mutations to be applied to files.
      * @returns A Promise for the file mutations being applied.
      */
@@ -39,7 +39,7 @@ export interface IMutationsApplier {
 
     /**
      * Applies a file's mutations.
-     * 
+     *
      * @param fileName   Name of the file.
      * @param mutations   Mutations to be applied to the file.
      * @returns A Promise for the result of the file's mutations.
@@ -52,14 +52,14 @@ export interface IMutationsApplier {
  */
 export class MutationsApplier implements IMutationsApplier {
     /**
-     * Generates output messages for significant operations.
-     */
-    private readonly logger: ILogger;
-
-    /**
      * Creates file providers for files.
      */
     private readonly fileProviderFactory: IFileProviderFactory;
+
+    /**
+     * Generates output messages for significant operations.
+     */
+    private readonly logger: ILogger;
 
     /**
      * Creates mutators for mutations.
@@ -68,7 +68,7 @@ export class MutationsApplier implements IMutationsApplier {
 
     /**
      * Initializes a new instance of the MutationsApplier class.
-     * 
+     *
      * @param settings   Settings to be used for initialization.
      */
     public constructor(settings: IMutationsApplierSettings) {
@@ -79,7 +79,7 @@ export class MutationsApplier implements IMutationsApplier {
 
     /**
      * Applies an iteration of file mutations.
-     * 
+     *
      * @param mutations   Mutations to be applied to files.
      * @returns A Promise for the file mutations being applied.
      */
@@ -95,7 +95,7 @@ export class MutationsApplier implements IMutationsApplier {
 
     /**
      * Applies a file's mutations.
-     * 
+     *
      * @param fileName   Name of the file.
      * @param mutations   Mutations to be applied to the file.
      * @returns A Promise for the result of the file's mutations.
@@ -111,18 +111,19 @@ export class MutationsApplier implements IMutationsApplier {
         }
 
         await fileProvider.write(fileContents);
+
         return fileContents;
     }
 
     /**
      * Orders a set of mutations last-to-first, without overlaps.
-     * 
+     *
      * @param mutations   Mutations to be applied to a file.
      * @returns The mutations in last-to-first order, without overlaps.
      */
     private orderMutations(mutations: IMutation[]): IMutation[] {
         const ordered: IMutation[] = [];
-        let lastStart: number = Infinity;
+        let lastStart = Infinity;
 
         for (let i: number = mutations.length - 1; i >= 0; i -= 1) {
             const mutation: IMutation = mutations[i];
@@ -134,8 +135,7 @@ export class MutationsApplier implements IMutationsApplier {
             ordered.push(mutation);
         }
 
-        return ordered.sort((a: IMutation, b: IMutation): number => {
-            return (b.range.end || b.range.begin) - (a.range.end || a.range.begin);
-        });
+        return ordered.sort((a: IMutation, b: IMutation): number =>
+            (b.range.end || b.range.begin) - (a.range.end || a.range.begin));
     }
 }

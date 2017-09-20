@@ -13,7 +13,7 @@ export class LocalFileProvider implements IFileProvider {
 
     /**
      * Initializes a new instance of the LocalFileProvider class.
-     * 
+     *
      * @param fileName   Name of the file.
      * @param fileSettings   Settings for manipulating local files.
      */
@@ -23,27 +23,31 @@ export class LocalFileProvider implements IFileProvider {
 
     /**
      * Reads from the file.
-     * 
+     *
      * @returns A Promise for the contents of the file.
      */
-    public read(): Promise<string> {
-        return new Promise((resolve, reject): void => {
+    public async read(): Promise<string> {
+        return await new Promise<string>((resolve, reject): void => {
             fs.readFile(this.fileName, (error: Error, data: Buffer): void => {
-                error ? reject(error) : resolve(data.toString());
+                error
+                    ? reject(error)
+                    : resolve(data.toString());
             });
         });
     }
 
     /**
      * Writes to the file.
-     * 
+     *
      * @param contents   New contents of the file.
      * @returns A Promise for writing to the file.
      */
     public async write(contents: string): Promise<void> {
-        await new Promise((resolve, reject): void => {
+        await new Promise<void>((resolve, reject): void => {
             fs.writeFile(this.fileName, contents, (error: Error): void => {
-                error ? reject(error) : resolve();
+                error
+                    ? reject(error)
+                    : resolve();
             });
         });
     }

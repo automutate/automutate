@@ -1,21 +1,12 @@
 import { IFileMutations, Logger } from "../logger";
 import { IMutation } from "../mutation";
 
+// tslint:disable:no-console
+
 /**
  * Generates console logs for significant operations.
  */
 export class ConsoleLogger extends Logger {
-    /**
-     * Logs that an unknown mutator was requested.
-     * 
-     * @param mutation   The requesting mutation of unknown type.
-     */
-    onUnknownMutationType(mutation: IMutation): void {
-        super.onUnknownMutationType(mutation);
-
-        console.error(`Unknown mutator type: '${mutation.type}'`);
-    }
-
     /**
      * Logs that mutations have completed.
      */
@@ -36,13 +27,24 @@ export class ConsoleLogger extends Logger {
             this.pluralize(filesCount, "file"),
             " in ",
             this.pluralize(wavesCount, "wave"),
-            "."
+            ".",
         ].join(""));
     }
 
     /**
+     * Logs that an unknown mutator was requested.
+     *
+     * @param mutation   The requesting mutation of unknown type.
+     */
+    public onUnknownMutationType(mutation: IMutation): void {
+        super.onUnknownMutationType(mutation);
+
+        console.error(`Unknown mutator type: '${mutation.type}'`);
+    }
+
+    /**
      * Displays a word and number, accounting for pluralization.
-     * 
+     *
      * @param count   How many of the word there are.
      * @param word   A word to display.
      */
@@ -52,3 +54,5 @@ export class ConsoleLogger extends Logger {
             : `${count} ${word}s`;
     }
 }
+
+// tslint:enable:no-console

@@ -1,7 +1,7 @@
 import { ILogger } from "./logger";
-import { Mutator } from "./mutator";
 import { IMutation } from "./mutation";
-import { IMutatorSearcher, IMutatorClass } from "./mutatorSearcher";
+import { Mutator } from "./mutator";
+import { IMutatorClass, IMutatorSearcher } from "./mutatorSearcher";
 
 /**
  * Mutator sub-classes, keyed by dashed-case name.
@@ -16,7 +16,7 @@ interface IMutatorClasses {
 export interface IMutatorFactory {
     /**
      * Attempts to find and instantiate a mutator sub-class for a file.
-     * 
+     *
      * @param name   Dashed-case name of the mutator sub-class.
      * @param fileContents   Contents of the file.
      * @returns An instance of the mutator sub-class, if the sub-class can be found.
@@ -25,7 +25,7 @@ export interface IMutatorFactory {
 
     /**
      * Generates and applies a mutator, if possible.
-     * 
+     *
      * @param fileContents   Contents of the file.
      * @param mutation   Mutation to be applied to the file.
      * @returns The mutated file contents.
@@ -43,18 +43,18 @@ export class MutatorFactory implements IMutatorFactory {
     private readonly classes: IMutatorClasses = {};
 
     /**
-     * Searches for mutator classes.
-     */
-    private readonly searcher: IMutatorSearcher;
-
-    /**
      * Generates output messages for significant operations.
      */
     private readonly logger: ILogger;
 
     /**
+     * Searches for mutator classes.
+     */
+    private readonly searcher: IMutatorSearcher;
+
+    /**
      * Initializes a new instance of the MutatorFactory class.
-     * 
+     *
      * @param searcher   Searches for mutator classes.
      */
     public constructor(mutatorSearcher: IMutatorSearcher, logger: ILogger) {
@@ -64,7 +64,7 @@ export class MutatorFactory implements IMutatorFactory {
 
     /**
      * Attempts to find and instantiate a mutator sub-class for a file.
-     * 
+     *
      * @param name   Dashed-case name of the mutator sub-class.
      * @param fileContents   Contents of the file.
      * @returns An instance of the mutator sub-class, if the sub-class can be found.
@@ -85,7 +85,7 @@ export class MutatorFactory implements IMutatorFactory {
 
     /**
      * Generates and applied a mutator, if possible.
-     * 
+     *
      * @param fileContents   Contents of the file.
      * @param mutation   Mutation to be applied to the file.
      * @returns The mutated file contents.
@@ -94,6 +94,7 @@ export class MutatorFactory implements IMutatorFactory {
         const mutator: Mutator | undefined = this.generate(mutation.type, fileContents);
         if (!mutator) {
             this.logger.onUnknownMutationType(mutation);
+
             return fileContents;
         }
 
