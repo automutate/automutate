@@ -1,6 +1,7 @@
 # automutate
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/automutate/automutate.svg)](https://greenkeeper.io/)
+[![Build Status](https://travis-ci.org/automutate/automutate.svg?branch=master)](https://travis-ci.org/automutate/automutate)
 [![npm](https://img.shields.io/npm/v/automutate.svg)](https://www.npmjs.com/package/automutate)
 
 Applies waves of mutations provided by other tools, such as linters.
