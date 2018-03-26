@@ -28,8 +28,10 @@ export interface IMutatorSearcher {
 export interface IMutatorClass<TMutator extends Mutator> {
     /**
      * Initializes a new instance of the TMutator class.
+     *
+     * @param originalFileContents   Original contents of the file.
      */
-    new(): TMutator;
+    new(originalFileContents: string): TMutator;
 }
 
 /**
@@ -72,7 +74,7 @@ export class MutatorSearcher implements IMutatorSearcher {
                 `${camelCaseName}${mutatorClassSuffix}.js`);
 
             if (fs.existsSync(joinedPath)) {
-                // tslint:disable-next-line:no-require-imports
+                // tslint:disable-next-line no-require-imports no-unsafe-any
                 return require(joinedPath)[this.nameTransformer.toPascalCase(name) + mutatorClassSuffix];
             }
         }

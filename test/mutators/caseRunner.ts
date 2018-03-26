@@ -1,17 +1,17 @@
 import * as path from "path";
 
-import { IMutationsApplier, MutationsApplier } from "../../lib/mutationsApplier";
 import { IFileProvider } from "../../lib/fileProvider";
 import { FileProviderFactory } from "../../lib/fileProviderFactory";
 import { StubFileProvider } from "../../lib/fileProviders/stubFileProvider";
 import { ILogger, Logger } from "../../lib/logger";
+import { IMutationsApplier, MutationsApplier } from "../../lib/mutationsApplier";
 import { MutatorFactory } from "../../lib/mutatorFactory";
 import { IMutatorSearcher, MutatorSearcher } from "../../lib/mutatorSearcher";
 import { ITestCase } from "./testCase";
 
 /**
  * Directs a test harness to expect two strings to be the same.
- * 
+ *
  * @param actual   Actual string value.
  * @param extpected   Expected string value.
  */
@@ -30,7 +30,7 @@ export class CaseRunner {
 
     /**
      * Initializes a new instance of the CaseRunner class.
-     * 
+     *
      * @param expect   Directs a test harness to expect two strings to be the same.
      */
     public constructor(expect: IExpect) {
@@ -39,21 +39,21 @@ export class CaseRunner {
 
     /**
      * Runs a test case to validate its results.
-     * 
+     *
      * @param testCase   Mutation test case to be verified.
      * @returns A Promise for the test case completing.
      */
     public async runCase(testCase: ITestCase): Promise<void> {
         // Arrange
         const mutatorSearcher: IMutatorSearcher = new MutatorSearcher([
-            path.join(__dirname, "../../lib/mutators")
+            path.join(__dirname, "../../lib/mutators"),
         ]);
         const stubLogger: ILogger = new Logger();
         const stubFileProvider: IFileProvider = new StubFileProvider(testCase.before);
         const mutationsApplier: IMutationsApplier = new MutationsApplier({
-            logger: stubLogger,
             fileProviderFactory: new FileProviderFactory((): IFileProvider => stubFileProvider),
-            mutatorFactory: new MutatorFactory(mutatorSearcher, stubLogger)
+            logger: stubLogger,
+            mutatorFactory: new MutatorFactory(mutatorSearcher, stubLogger),
         });
 
         // Act

@@ -42,13 +42,13 @@ It requires an [`IMutationsProvider`](../src/mutationsProvider.ts) to generate s
 A base setup would look something like:
 
 ```javascript
-import { AutoMutator } from "automutate/lib/automutator";
+import { AutoMutator } from "automutate";
 
 import { SmileyMutationsProvider } from "./smileyMutationsProvider";
 
 export function createMyAutomutator() {
     return new AutoMutator({
-        mutationsProvider: new SmileyMutationsProvider()
+        mutationsProvider: new SmileyMutationsProvider(),
     });
 }
 ```
@@ -69,9 +69,10 @@ import * as fs from "mz/fs";
 const smiley = ":)\n";
 
 export class SmileyMutationsProvider {
-    provide() {
-        return fs.readFile("my-file.txt")
-            .then(data => this.generateMutations(data.toString()));
+    async provide() {
+        const data = await fs.readFile("my-file.txt");
+
+        return this.generateMutations(data.toString());
     }
 
     generateMutations(text) {
@@ -86,9 +87,9 @@ export class SmileyMutationsProvider {
                     range: {
                         begin: 0
                     },
-                    type: "text-insert"
-                }
-            ]
+                    type: "text-insert",
+                },
+            ],
         };
     }
 }
