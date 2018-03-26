@@ -1,6 +1,9 @@
 {
     "compilerOptions": {
         "declaration": true,
+        "lib": [
+            "es2015"
+        ],
         "module": "commonjs",
         "moduleResolution": "node",
         "noFallthroughCasesInSwitch": true,

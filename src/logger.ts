@@ -1,12 +1,5 @@
 import { IMutation } from "./mutation";
-import { IMutationsWave } from "./mutationsProvider";
-
-/**
- * Mutations applied to each file, keyed by file name.
- */
-export interface IFileMutations {
-    [i: string]: IMutation[];
-}
+import { IFileMutations, IMutationsWave } from "./mutationsProvider";
 
 /**
  * Generates output messages for significant operations.

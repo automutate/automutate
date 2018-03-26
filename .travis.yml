@@ -5,7 +5,7 @@ node_js:
   - "4.0"
 
 script:
-  npm run setup && npm run verify
+  npm run verify
 
 # Recommended workaround for https://github.com/travis-ci/travis-ci/issues/8836
 sudo: required
