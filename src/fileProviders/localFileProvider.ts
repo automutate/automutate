@@ -27,7 +27,7 @@ export class LocalFileProvider implements IFileProvider {
      * @returns A Promise for the contents of the file.
      */
     public async read(): Promise<string> {
-        return await new Promise<string>((resolve, reject): void => {
+        return new Promise<string>((resolve, reject): void => {
             fs.readFile(this.fileName, (error: Error, data: Buffer): void => {
                 error
                     ? reject(error)

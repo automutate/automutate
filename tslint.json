@@ -3,6 +3,7 @@
     "rules": {
         "callable-types": false,
         "linebreak-style": false,
+        "newline-per-chained-call": false,
         "no-parameter-reassignment": false,
         "no-submodule-imports": false,
         "no-unused-variable": false,

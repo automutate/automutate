@@ -47,12 +47,12 @@ export class Logger implements ILogger {
     /**
      * Mutations applied to each file, keyed by file name.
      */
-    private fileMutations: IFileMutations = {};
+    private readonly fileMutations: IFileMutations = {};
 
     /**
      * Waves of file mutations.
      */
-    private mutationsWaves: IMutationsWave[] = [];
+    private readonly mutationsWaves: IMutationsWave[] = [];
 
     /**
      * Logs that mutations have completed.
