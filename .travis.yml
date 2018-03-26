@@ -1,10 +1,12 @@
 language: node_js
 
 node_js:
-  - "7.0"
-  - "6.0"
-  - "5.0"
-  - "4.0"
+  - "node"
 
 script:
-  node_modules/gulp/bin/gulp.js
+  npm run setup && npm run verify
+
+# Recommended workaround for https://github.com/travis-ci/travis-ci/issues/8836
+sudo: required
+addons:
+  chrome: stable
