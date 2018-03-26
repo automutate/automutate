@@ -10,7 +10,7 @@ Calls to `mutate` are given the current file contents as a string, along with th
 Given the following `text-insert-smiley` mutation interface:
 
 ```typescript
-import { IMutation } from "automutate/lib/mutation";
+import { IMutation } from "automutate";
 
 export interface ITextInsertSmileyMutation extends IMutation {
     /**
@@ -21,7 +21,7 @@ export interface ITextInsertSmileyMutation extends IMutation {
 ```
 
 ```javascript
-import { Mutator } from "automutate/lib/mutator";
+import { Mutator } from "automutate";
 
 const smiley = ":)";
 
@@ -30,7 +30,7 @@ export class InsertSmileyMutator {
         return [
             fileContents.substring(0, mutation.range.begin),
             smiley,
-            fileContents.substring(mutation.range.begin)
+            fileContents.substring(mutation.range.begin),
         ].join("");
     }
 }
@@ -43,7 +43,7 @@ Using `text-insert-smiley` mutations, the mutation from [Onboarding](onboarding.
     range: {
         begin: 0
     },
-    type: "text-insert-smiley"
+    type: "text-insert-smiley",
 }
 ```
 
@@ -55,7 +55,7 @@ For example, a language's linter might create an abstract syntax tree for the fi
 Given the following `node-rename` mutation interface:
 
 ```typescript
-import { IMutation, IMutationRange } from "automutate/lib/mutation";
+import { IMutation, IMutationRange } from "automutate";
 
 export interface INodeRenameMutation extends IMutation {
     /**
@@ -78,7 +78,7 @@ export interface INodeRenameMutation extends IMutation {
 The `NodeRenameMutator` implementation would generate the file's abstract syntax tree in its constructor and act using that tree for each proposed mutation:
 
 ```javascript
-import { Mutator } from "automutate/lib/mutator";
+import { Mutator } from "automutate";
 import { AbstractSyntaxTree } from "your/language";
 
 export class NodeRenameMutator {
@@ -99,7 +99,7 @@ export class NodeRenameMutator {
         return [
             fileContents.substring(0, mutation.range.begin),
             this.ast.stringifyBetween(mutation.range.begin, mutation.range.end),
-            fileContents.substring(mutation.range.end || mutation.range.begin)
+            fileContents.substring(mutation.range.end || mutation.range.begin),
         ].join("");
     }
 }

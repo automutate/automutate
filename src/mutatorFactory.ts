@@ -80,7 +80,7 @@ export class MutatorFactory implements IMutatorFactory {
         }
 
         // @todo Use some form of "implements" keyword when TypeScript supports it
-        return new (this.classes[name] as any)(fileContents) as TMutator;
+        return new (this.classes[name])(fileContents) as TMutator;
     }
 
     /**

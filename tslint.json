@@ -1,16 +1,15 @@
 {
     "extends": "tslint:all",
     "rules": {
-        "callable-types": [false],
-        "linebreak-style": [false],
-        "no-any": [false],
-        "no-parameter-reassignment": [false],
-        "no-submodule-imports": [false],
-        "no-unsafe-any": [false],
-        "no-void-expression": [false],
-        "prefer-function-over-method": [false],
-        "strict-boolean-expressions": [false],
-        "typedef": [false],
-        "variable-name": [false]
+        "callable-types": false,
+        "linebreak-style": false,
+        "no-parameter-reassignment": false,
+        "no-submodule-imports": false,
+        "no-unused-variable": false,
+        "no-void-expression": false,
+        "prefer-function-over-method": false,
+        "strict-boolean-expressions": false,
+        "typedef": false,
+        "variable-name": false
     }
 }
