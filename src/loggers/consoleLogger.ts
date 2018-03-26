@@ -1,5 +1,6 @@
-import { IFileMutations, Logger } from "../logger";
+import { Logger } from "../logger";
 import { IMutation } from "../mutation";
+import { IFileMutations } from "../mutationsProvider";
 
 // tslint:disable:no-console
 
@@ -17,7 +18,7 @@ export class ConsoleLogger extends Logger {
         const filesCount: number = Object.keys(fileMutations).length;
         const mutationsCount: number = Object.keys(fileMutations)
             .map((fileName: string): number => fileMutations[fileName].length)
-            .reduce((a: number, b: number): number => a + b);
+            .reduce((a: number, b: number): number => a + b, 0);
         const wavesCount: number = this.getMutationsWaves().length;
 
         console.log([
