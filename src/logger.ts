@@ -47,7 +47,7 @@ export class Logger implements ILogger {
     /**
      * Mutations applied to each file, keyed by file name.
      */
-    private readonly fileMutations: IFileMutations = {};
+    private readonly fileMutations: { [i: string]: IMutation[] } = {};
 
     /**
      * Waves of file mutations.
@@ -110,7 +110,7 @@ export class Logger implements ILogger {
      *
      * @returns Waves of file mutations.
      */
-    protected getMutationsWaves(): IMutationsWave[] {
+    protected getMutationsWaves(): ReadonlyArray<IMutationsWave> {
         return this.mutationsWaves;
     }
 }

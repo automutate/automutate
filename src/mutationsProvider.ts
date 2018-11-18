@@ -4,7 +4,7 @@ import { IMutation } from "./mutation";
  * Mutations to be applied to files, keyed by file name.
  */
 export interface IFileMutations {
-    [i: string]: IMutation[];
+    [i: string]: ReadonlyArray<IMutation>;
 }
 
 /**
@@ -14,7 +14,7 @@ export interface IMutationsWave {
     /**
      * Mutations to be applied to files, if any.
      */
-    fileMutations?: IFileMutations;
+    readonly fileMutations?: IFileMutations;
 }
 
 /**
@@ -24,5 +24,5 @@ export interface IMutationsProvider {
     /**
      * @returns A Promise for a wave of file mutations.
      */
-    provide(): Promise<IMutationsWave>;
+    readonly provide: () => Promise<IMutationsWave>;
 }

@@ -100,7 +100,7 @@ export class MutationsApplier implements IMutationsApplier {
      * @param mutations   Mutations to be applied to the file.
      * @returns A Promise for the result of the file's mutations.
      */
-    public async applyFileMutations(fileName: string, mutations: IMutation[]): Promise<string> {
+    public async applyFileMutations(fileName: string, mutations: ReadonlyArray<IMutation>): Promise<string> {
         const mutationsOrdered: IMutation[] = this.orderMutations(mutations);
         const fileProvider: IFileProvider = this.fileProviderFactory.generate(fileName);
         let fileContents: string = await fileProvider.read();
@@ -121,7 +121,7 @@ export class MutationsApplier implements IMutationsApplier {
      * @param mutations   Mutations to be applied to a file.
      * @returns The mutations in last-to-first order, without overlaps.
      */
-    private orderMutations(mutations: IMutation[]): IMutation[] {
+    private orderMutations(mutations: ReadonlyArray<IMutation>): IMutation[] {
         const ordered: IMutation[] = [];
         let lastStart = Infinity;
 

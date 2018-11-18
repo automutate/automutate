@@ -5,12 +5,12 @@ export interface IMutationRange {
     /**
      * Inclusive character position this starts at.
      */
-    begin: number;
+    readonly begin: number;
 
     /**
      * Exclusive character position this ends at.
      */
-    end?: number;
+    readonly end?: number;
 }
 
 /**
@@ -20,12 +20,12 @@ export interface IMutation {
     /**
      * Character positions this affects.
      */
-    range: IMutationRange;
+    readonly range: IMutationRange;
 
     /**
      * Unique type name identifying this mutation.
      */
-    type: string;
+    readonly type: string;
 }
 
 /**
@@ -35,10 +35,10 @@ export interface IMutations extends IMutation {
     /**
      * Mutations to be applied together.
      */
-    mutations: IMutation[];
+    readonly mutations: ReadonlyArray<IMutation>;
 
     /**
      * Unique type name identifying multiple mutations.
      */
-    type: "multiple";
+    readonly type: "multiple";
 }
