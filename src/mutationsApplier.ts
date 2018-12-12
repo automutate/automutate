@@ -4,6 +4,7 @@ import { ILogger } from "./logger";
 import { IMutation } from "./mutation";
 import { IFileMutations } from "./mutationsProvider";
 import { IMutatorFactory } from "./mutatorFactory";
+import { orderMutationsLastToFirstWithoutOverlaps } from "./ordering";
 
 /**
  * Settings to initialize a new IMutationsApplier.
@@ -101,7 +102,7 @@ export class MutationsApplier implements IMutationsApplier {
      * @returns A Promise for the result of the file's mutations.
      */
     public async applyFileMutations(fileName: string, mutations: ReadonlyArray<IMutation>): Promise<string> {
-        const mutationsOrdered: IMutation[] = this.orderMutations(mutations);
+        const mutationsOrdered: IMutation[] = orderMutationsLastToFirstWithoutOverlaps(mutations);
         const fileProvider: IFileProvider = this.fileProviderFactory.generate(fileName);
         let fileContents: string = await fileProvider.read();
 
@@ -113,29 +114,5 @@ export class MutationsApplier implements IMutationsApplier {
         await fileProvider.write(fileContents);
 
         return fileContents;
-    }
-
-    /**
-     * Orders a set of mutations last-to-first, without overlaps.
-     *
-     * @param mutations   Mutations to be applied to a file.
-     * @returns The mutations in last-to-first order, without overlaps.
-     */
-    private orderMutations(mutations: ReadonlyArray<IMutation>): IMutation[] {
-        const ordered: IMutation[] = [];
-        let lastStart = Infinity;
-
-        for (let i: number = mutations.length - 1; i >= 0; i -= 1) {
-            const mutation: IMutation = mutations[i];
-            if ((mutation.range.end || mutation.range.begin) > lastStart) {
-                continue;
-            }
-
-            lastStart = mutation.range.begin;
-            ordered.push(mutation);
-        }
-
-        return ordered.sort((a: IMutation, b: IMutation): number =>
-            (b.range.end || b.range.begin) - (a.range.end || a.range.begin));
     }
 }

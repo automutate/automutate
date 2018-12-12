@@ -2,19 +2,18 @@
     {
         "mutations": [
             {
+                "insertion": "34",
                 "range": {
-                    "begin": 2,
-                    "end": 3
+                    "begin": 3
                 },
-                "type": "text-delete"
+                "type": "text-insert"
             },
             {
                 "insertion": "12",
                 "range": {
-                    "begin": 4,
-                    "end": 5
+                    "begin": 2
                 },
-                "type": "text-swap"
+                "type": "text-insert"
             }
         ],
         "range": {

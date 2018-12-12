@@ -75,7 +75,6 @@ export class AutoMutator implements IAutoMutator {
      */
     public async run(): Promise<void> {
         while (true) {
-            // tslint:disable:no-console
             const mutationsWave: IMutationsWave = await this.mutationsProvider.provide();
             if (!mutationsWave.fileMutations) {
                 break;
