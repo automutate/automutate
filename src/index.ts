@@ -1,4 +1,4 @@
-export * from "./automutator";
+export * from "./autoMutator";
 export * from "./logger";
 export * from "./loggers/consoleLogger";
 export * from "./mutation";
