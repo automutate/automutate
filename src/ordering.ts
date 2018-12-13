@@ -27,13 +27,13 @@ export const orderMutationsLastToFirst = (mutations: ReadonlyArray<IMutation>): 
  * @returns The mutations in last-to-first order, without overlaps.
  */
 export const orderMutationsLastToFirstWithoutOverlaps = (mutations: ReadonlyArray<IMutation>): IMutation[] => {
-    const ordered = orderMutationsLastToFirst(mutations);
+    const ordered = orderMutationsFirstToLast(mutations);
     const orderedWithoutOverlaps: IMutation[] = [];
     let lastStart = Infinity;
 
     for (let i: number = ordered.length - 1; i >= 0; i -= 1) {
         const mutation: IMutation = ordered[i];
-        if ((mutation.range.end || mutation.range.begin) >= lastStart) {
+        if ((mutation.range.end || mutation.range.begin) > lastStart) {
             continue;
         }
 

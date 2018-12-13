@@ -1,6 +1,3 @@
-/// <reference path="../../node_modules/@types/chai/index.d.ts" />
-/// <reference path="../../node_modules/@types/mocha/index.d.ts" />
-
 import { expect } from "chai";
 
 import { NameTransformer } from "../../lib/nameTransformer";
