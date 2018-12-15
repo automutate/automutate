@@ -10,3 +10,4 @@ export * from "./mutators/textSwapMutator";
 export * from "./mutators/textDeleteMutator";
 export * from "./mutators/textInsertMutator";
 export * from "./mutators/textReplaceMutator";
+export * from "./runMutations";
