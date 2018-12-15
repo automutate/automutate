@@ -3,26 +3,12 @@ import { ConsoleLogger } from "./loggers/consoleLogger";
 import { IMutationsApplier } from "./mutationsApplier";
 import { FileMutationsApplier } from "./mutationsAppliers/fileMutationsApplier";
 import { IMutationsProvider, IMutationsWave } from "./mutationsProvider";
+import { IMutationRunSettings } from "./runMutations";
 
 /**
  * Settings to initialize a new IAutoMutator.
  */
-export interface IAutoMutatorSettings {
-    /**
-     * Generates output messages for significant operations.
-     */
-    logger?: ILogger;
-
-    /**
-     * Applies individual waves of file mutations.
-     */
-    mutationsApplier?: IMutationsApplier;
-
-    /**
-     * Provides waves of file mutations.
-     */
-    mutationsProvider: IMutationsProvider;
-}
+export type IAutoMutatorSettings = IMutationRunSettings;
 
 /**
  * Runs waves of file mutations.
@@ -38,6 +24,8 @@ export interface IAutoMutator {
 
 /**
  * Runs waves of file mutations.
+ *
+ * @deprecated   Use `runMutations` from ./runMutations instead.
  */
 export class AutoMutator implements IAutoMutator {
     /**
