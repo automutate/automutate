@@ -55,6 +55,10 @@ export const combineMutations = (...mutations: IMutation[]): IMultipleMutations 
         if (range.end !== undefined && (end === undefined || range.end > end)) {
             end = range.end;
         }
+
+        end = end === undefined
+            ? Math.max(begin, range.begin)
+            : Math.max(end, begin, range.begin);
     }
 
     return {
