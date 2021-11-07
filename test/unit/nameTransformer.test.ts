@@ -1,103 +1,93 @@
-import { NameTransformer } from "../../src/nameTransformer";
+import { toCamelCase, toPascalCase } from "../../src/nameTransformer";
 
-describe("NameTransformer", () => {
-  describe("toCamelCase", () => {
-    it("doesn't change a single word", () => {
-      // Arrange
-      const transformer = new NameTransformer();
-      const name = "aaa";
+describe("toCamelCase", () => {
+  it("doesn't change a single word", () => {
+    // Arrange
+    const name = "aaa";
 
-      // Act
-      const transformed = transformer.toCamelCase(name);
+    // Act
+    const transformed = toCamelCase(name);
 
-      // Assert
-      expect(transformed).toBe("aaa");
-    });
-
-    it("combines two words", () => {
-      // Arrange
-      const transformer = new NameTransformer();
-      const name = "aaa-bbb";
-
-      // Act
-      const transformed = transformer.toCamelCase(name);
-
-      // Assert
-      expect(transformed).toBe("aaaBbb");
-    });
-
-    it("combines three words", () => {
-      // Arrange
-      const transformer = new NameTransformer();
-      const name = "aaa-bbb-ccc";
-
-      // Act
-      const transformed = transformer.toCamelCase(name);
-
-      // Assert
-      expect(transformed).toBe("aaaBbbCcc");
-    });
-
-    it("ignores casing", () => {
-      // Arrange
-      const transformer = new NameTransformer();
-      const name = "AaA-bBb-CCC-ddd";
-
-      // Act
-      const transformed = transformer.toCamelCase(name);
-
-      // Assert
-      expect(transformed).toBe("aaaBbbCccDdd");
-    });
+    // Assert
+    expect(transformed).toBe("aaa");
   });
 
-  describe("toPascalCase", () => {
-    it("changes a single word", () => {
-      // Arrange
-      const transformer = new NameTransformer();
-      const name = "aaa";
+  it("combines two words", () => {
+    // Arrange
+    const name = "aaa-bbb";
 
-      // Act
-      const transformed = transformer.toPascalCase(name);
+    // Act
+    const transformed = toCamelCase(name);
 
-      // Assert
-      expect(transformed).toBe("Aaa");
-    });
+    // Assert
+    expect(transformed).toBe("aaaBbb");
+  });
 
-    it("combines two words", () => {
-      // Arrange
-      const transformer = new NameTransformer();
-      const name = "aaa-bbb";
+  it("combines three words", () => {
+    // Arrange
+    const name = "aaa-bbb-ccc";
 
-      // Act
-      const transformed = transformer.toPascalCase(name);
+    // Act
+    const transformed = toCamelCase(name);
 
-      // Assert
-      expect(transformed).toBe("AaaBbb");
-    });
+    // Assert
+    expect(transformed).toBe("aaaBbbCcc");
+  });
 
-    it("combines three words", () => {
-      // Arrange
-      const transformer = new NameTransformer();
-      const name = "aaa-bbb-ccc";
+  it("ignores casing", () => {
+    // Arrange
+    const name = "AaA-bBb-CCC-ddd";
 
-      // Act
-      const transformed = transformer.toPascalCase(name);
+    // Act
+    const transformed = toCamelCase(name);
 
-      // Assert
-      expect(transformed).toBe("AaaBbbCcc");
-    });
+    // Assert
+    expect(transformed).toBe("aaaBbbCccDdd");
+  });
+});
 
-    it("ignores casing", () => {
-      // Arrange
-      const transformer = new NameTransformer();
-      const name = "AaA-bBb-CCC-ddd";
+describe("toPascalCase", () => {
+  it("changes a single word", () => {
+    // Arrange
+    const name = "aaa";
 
-      // Act
-      const transformed = transformer.toPascalCase(name);
+    // Act
+    const transformed = toPascalCase(name);
 
-      // Assert
-      expect(transformed).toBe("AaaBbbCccDdd");
-    });
+    // Assert
+    expect(transformed).toBe("Aaa");
+  });
+
+  it("combines two words", () => {
+    // Arrange
+    const name = "aaa-bbb";
+
+    // Act
+    const transformed = toPascalCase(name);
+
+    // Assert
+    expect(transformed).toBe("AaaBbb");
+  });
+
+  it("combines three words", () => {
+    // Arrange
+    const name = "aaa-bbb-ccc";
+
+    // Act
+    const transformed = toPascalCase(name);
+
+    // Assert
+    expect(transformed).toBe("AaaBbbCcc");
+  });
+
+  it("ignores casing", () => {
+    // Arrange
+    const name = "AaA-bBb-CCC-ddd";
+
+    // Act
+    const transformed = toPascalCase(name);
+
+    // Assert
+    expect(transformed).toBe("AaaBbbCccDdd");
   });
 });

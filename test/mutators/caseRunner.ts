@@ -1,6 +1,6 @@
 import { StubFileProvider } from "../../src/fileProviders/stubFileProvider";
 import { NoopLogger } from "../../src/loggers/noopLogger";
-import { MutationsApplier } from "../../src/mutationsApplier";
+import { FileMutationsApplier } from "../../src/mutationsAppliers/fileMutationsApplier";
 import { MutatorFactory } from "../../src/mutatorFactory";
 import { TestCase } from "./testCase";
 
@@ -9,7 +9,7 @@ import { TextDeleteMutator } from "../../src/mutators/textDeleteMutator";
 import { TextInsertMutator } from "../../src/mutators/textInsertMutator";
 import { TextReplaceMutator } from "../../src/mutators/textReplaceMutator";
 import { TextSwapMutator } from "../../src/mutators/textSwapMutator";
-import { MutatorClass } from "../../src/mutatorSearcher";
+import { MutatorClass } from "../../src/types/mutatorSearcher";
 import { Mutator } from "../../src/mutator";
 
 /**
@@ -59,7 +59,7 @@ export class CaseRunner {
   public async runCase(testCase: TestCase): Promise<void> {
     // Arrange
     const stubFileProvider = new StubFileProvider(testCase.before);
-    const mutationsApplier = new MutationsApplier({
+    const mutationsApplier = new FileMutationsApplier({
       fileProviderFactory: {
         generate: () => stubFileProvider,
       },

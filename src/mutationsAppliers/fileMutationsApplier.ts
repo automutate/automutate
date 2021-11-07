@@ -1,7 +1,9 @@
 import { FileProvider } from "../fileProvider";
 import { LocalFileProvider } from "../fileProviders/localFileProvider";
-import { Logger } from "../logger";
-import { MutationsApplier } from "../types/mutationsApplier";
+import {
+  MutationsApplier,
+  MutationsApplierSettings,
+} from "../types/mutationsApplier";
 import { MutatorFactory } from "../mutatorFactory";
 import { CachingFileProviderFactory } from "../fileProviderFactories/cachingFileProviderFactory";
 import { CommonJSMutatorSearcher } from "../mutatorSearchers/commonJSMutatorSearcher";
@@ -9,12 +11,7 @@ import { CommonJSMutatorSearcher } from "../mutatorSearchers/commonJSMutatorSear
 /**
  * Settings to apply individual waves of file mutations to local files.
  */
-export interface FileMutationsApplierSettings {
-  /**
-   * Generates output messages for significant operations.
-   */
-  logger: Logger;
-
+export interface FileMutationsApplierSettings extends MutationsApplierSettings {
   /**
    * Additional directories to search for mutators within.
    */
@@ -32,14 +29,18 @@ export class FileMutationsApplier extends MutationsApplier {
    */
   public constructor(settings: FileMutationsApplierSettings) {
     super({
-      fileProviderFactory: new CachingFileProviderFactory(
-        (fileName: string): FileProvider => new LocalFileProvider(fileName)
-      ),
+      fileProviderFactory:
+        settings.fileProviderFactory ??
+        new CachingFileProviderFactory(
+          (fileName: string): FileProvider => new LocalFileProvider(fileName)
+        ),
       logger: settings.logger,
-      mutatorFactory: new MutatorFactory(
-        new CommonJSMutatorSearcher(settings.mutatorDirectories || []),
-        settings.logger
-      ),
+      mutatorFactory:
+        settings.mutatorFactory ??
+        new MutatorFactory(
+          new CommonJSMutatorSearcher(settings.mutatorDirectories ?? []),
+          settings.logger
+        ),
     });
   }
 }
