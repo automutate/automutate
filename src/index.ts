@@ -1,4 +1,3 @@
-export * from "./autoMutator";
 export * from "./fileProviderFactories/cachingFileProviderFactory";
 export * from "./fileProviders/localFileProvider";
 export * from "./fileProviders/stubFileProvider";

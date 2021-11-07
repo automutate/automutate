@@ -1,9 +1,8 @@
-import { AutoMutatorSettings } from "./autoMutator";
 import { Logger } from "./types/logger";
 import { ConsoleLogger } from "./loggers/consoleLogger";
 import { MutationsApplier } from "./types/mutationsApplier";
 import { FileMutationsApplier } from "./mutationsAppliers/fileMutationsApplier";
-import { MutationsProvider, MutationsWave } from "./mutationsProvider";
+import { MutationsProvider } from "./mutationsProvider";
 
 /**
  * Settings to run waves of mutations.
@@ -23,6 +22,23 @@ export interface MutationRunSettings {
    * Provides waves of file mutations.
    */
   mutationsProvider: MutationsProvider;
+
+  /**
+   * Settings controlling how many waves to run.
+   */
+  waves?: WavesSettings;
+}
+
+export interface WavesSettings {
+  /**
+   * Maximum number of waves to run, if not infinite.
+   */
+  maximum?: number;
+
+  /**
+   * Minimum number of waves to run, if not 0.
+   */
+  minimum?: number;
 }
 
 /**
@@ -41,17 +57,21 @@ export interface MutationRunResults {
  * @param settings   Settings to run waves of mutations.
  */
 export const runMutations = async (
-  settings: AutoMutatorSettings
+  settings: MutationRunSettings
 ): Promise<MutationRunResults> => {
-  const logger = settings.logger || new ConsoleLogger();
+  const logger = settings.logger ?? new ConsoleLogger();
   const mutatedFileNames = new Set<string>();
   const mutationsApplier =
-    settings.mutationsApplier || new FileMutationsApplier({ logger });
+    settings.mutationsApplier ?? new FileMutationsApplier({ logger });
+  const { maximum = Infinity, minimum = 0 } = settings.waves ?? {};
 
-  while (true) {
-    const mutationsWave: MutationsWave =
-      await settings.mutationsProvider.provide();
+  for (let i = 0; i < maximum; i += 1) {
+    const mutationsWave = await settings.mutationsProvider.provide();
     if (mutationsWave.fileMutations === undefined) {
+      if (i < minimum) {
+        continue;
+      }
+
       break;
     }
 
