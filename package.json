@@ -21,7 +21,7 @@
     "typescript": "^3.9.3"
   },
   "scripts": {
-    "compile": "tsc",
+    "compile": "tsc --module commonjs",
     "format": "yarn prettier --write",
     "format:verify": "yarn prettier --list-different \"**/*.{js,json,md,ts,yml}\"",
     "format:write-all": "yarn format:verify --write",
