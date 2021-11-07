@@ -10,13 +10,13 @@ Calls to `mutate` are given the current file contents as a string, along with th
 Given the following `text-insert-smiley` mutation interface:
 
 ```typescript
-import { IMutation } from "automutate";
+import { Mutation } from "automutate";
 
-export interface ITextInsertSmileyMutation extends IMutation {
-    /**
-     * Unique type name identifying smiley insertion mutations.
-     */
-    type: "text-insert-smiley";
+export interface TextInsertSmileyMutation extends Mutation {
+  /**
+   * Unique type name identifying smiley insertion mutations.
+   */
+  type: "text-insert-smiley";
 }
 ```
 
@@ -26,13 +26,13 @@ import { Mutator } from "automutate";
 const smiley = ":)";
 
 export class InsertSmileyMutator {
-    mutate(fileContents, mutation) {
-        return [
-            fileContents.substring(0, mutation.range.begin),
-            smiley,
-            fileContents.substring(mutation.range.begin),
-        ].join("");
-    }
+  mutate(fileContents, mutation) {
+    return [
+      fileContents.substring(0, mutation.range.begin),
+      smiley,
+      fileContents.substring(mutation.range.begin),
+    ].join("");
+  }
 }
 ```
 
@@ -49,29 +49,29 @@ Using `text-insert-smiley` mutations, the mutation from [Onboarding](onboarding.
 
 ## Advanced Mutators
 
-Mutators are also given the *original* file contents at construction time, which allows for custom mutators to perform setup logic.
+Mutators are also given the _original_ file contents at construction time, which allows for custom mutators to perform setup logic.
 For example, a language's linter might create an abstract syntax tree for the file.
 
 Given the following `node-rename` mutation interface:
 
 ```typescript
-import { IMutation, IMutationRange } from "automutate";
+import { Mutation, MutationRange } from "automutate";
 
-export interface INodeRenameMutation extends IMutation {
-    /**
-     * New name for the node.
-     */
-    newName: string;
+export interface NodeRenameMutation extends Mutation {
+  /**
+   * New name for the node.
+   */
+  newName: string;
 
-    /**
-     * AST node being renamed. 
-     */
-     node: IMutationRange;
+  /**
+   * AST node being renamed.
+   */
+  node: MutationRange;
 
-    /**
-     * Unique type name identifying node rename mutations.
-     */
-    type: "node-name";
+  /**
+   * Unique type name identifying node rename mutations.
+   */
+  type: "node-name";
 }
 ```
 
@@ -82,26 +82,26 @@ import { Mutator } from "automutate";
 import { AbstractSyntaxTree } from "your/language";
 
 export class NodeRenameMutator {
-    constructor(originalFileContents) {
-        super(originalFileContents);
+  constructor(originalFileContents) {
+    super(originalFileContents);
 
-        this.ast = new AbstractSyntaxTree(originalFileContents);
+    this.ast = new AbstractSyntaxTree(originalFileContents);
+  }
+
+  mutate(fileContents, mutation) {
+    const node = this.ast.getNodeAt(mutation.node.begin, mutation.node.end);
+    node.rename(mutation.newName);
+
+    for (const nodeReference of this.ast.getNodeReferences(node)) {
+      nodeReference.rename(mutation.newName);
     }
 
-    mutate(fileContents, mutation) {
-        const node = this.ast.getNodeAt(mutation.node.begin, mutation.node.end);
-        node.rename(mutation.newName);
-
-        for (const nodeReference of this.ast.getNodeReferences(node)) {
-            nodeReference.rename(mutation.newName);
-        }
-
-        return [
-            fileContents.substring(0, mutation.range.begin),
-            this.ast.stringifyBetween(mutation.range.begin, mutation.range.end),
-            fileContents.substring(mutation.range.end || mutation.range.begin),
-        ].join("");
-    }
+    return [
+      fileContents.substring(0, mutation.range.begin),
+      this.ast.stringifyBetween(mutation.range.begin, mutation.range.end),
+      fileContents.substring(mutation.range.end || mutation.range.begin),
+    ].join("");
+  }
 }
 ```
 

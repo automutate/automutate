@@ -1,0 +1,5 @@
+{
+  "extensionsToTreatAsEsm": [".ts"],
+  "moduleFileExtensions": ["ts", "js"],
+  "testRegex": ["\\.test\\.ts$"]
+}

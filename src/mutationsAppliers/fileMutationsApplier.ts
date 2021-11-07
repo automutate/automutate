@@ -1,48 +1,58 @@
 import * as path from "path";
 
-import { IFileProvider } from "../fileProvider";
-import { FileProviderFactory } from "../fileProviderFactory";
+import { FileProvider } from "../types/fileProvider";
 import { LocalFileProvider } from "../fileProviders/localFileProvider";
-import { ILogger } from "../logger";
-import { MutationsApplier } from "../mutationsApplier";
+import {
+  MutationsApplier,
+  MutationsApplierSettings,
+} from "../types/mutationsApplier";
 import { MutatorFactory } from "../mutatorFactory";
-import { MutatorSearcher } from "../mutatorSearcher";
+import { CachingFileProviderFactory } from "../fileProviderFactories/cachingFileProviderFactory";
+import { CommonJSMutatorSearcher } from "../mutatorSearchers/commonJSMutatorSearcher";
+import { Logger } from "../types/logger";
 
 /**
  * Settings to apply individual waves of file mutations to local files.
  */
-export interface IFileMutationsApplierSettings {
-    /**
-     * Generates output messages for significant operations.
-     */
-    logger: ILogger;
+export interface FileMutationsApplierSettings
+  extends Partial<MutationsApplierSettings> {
+  /**
+   * Additional directories to search for mutators within.
+   */
+  mutatorDirectories?: string[];
 
-    /**
-     * Additional directories to search for mutators within.
-     */
-    mutatorDirectories?: string[];
+  /**
+   * Generates output messages for significant operations.
+   */
+  logger: Logger;
 }
 
 /**
  * Applies individual waves of file mutations to local files.
  */
 export class FileMutationsApplier extends MutationsApplier {
-    /**
-     * Initializes a new instance of the FileMutationsApplier class.
-     *
-     * @param settings   Settings to be used for initialization.
-     */
-    public constructor(settings: IFileMutationsApplierSettings) {
-        super({
-            fileProviderFactory: new FileProviderFactory(
-                (fileName: string): IFileProvider => new LocalFileProvider(fileName)),
-            logger: settings.logger,
-            mutatorFactory: new MutatorFactory(
-                new MutatorSearcher([
-                    path.join(__dirname, "../../lib/mutators"),
-                    ...(settings.mutatorDirectories || []),
-                ]),
-                settings.logger),
-        });
-    }
+  /**
+   * Initializes a new instance of the FileMutationsApplier class.
+   *
+   * @param settings   Settings to be used for initialization.
+   */
+  public constructor(settings: FileMutationsApplierSettings) {
+    super({
+      fileProviderFactory:
+        settings.fileProviderFactory ??
+        new CachingFileProviderFactory(
+          (fileName: string): FileProvider => new LocalFileProvider(fileName)
+        ),
+      logger: settings.logger,
+      mutatorFactory:
+        settings.mutatorFactory ??
+        new MutatorFactory(
+          new CommonJSMutatorSearcher([
+            path.join(__dirname, "../../lib/mutators"),
+            ...(settings.mutatorDirectories || []),
+          ]),
+          settings.logger
+        ),
+    });
+  }
 }

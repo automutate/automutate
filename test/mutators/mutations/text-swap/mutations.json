@@ -1,10 +1,10 @@
 [
-    {
-        "insertion": "123",
-        "range": {
-            "begin": 2,
-            "end": 5
-        },
-        "type": "text-swap"
-    }
+  {
+    "insertion": "123",
+    "range": {
+      "begin": 2,
+      "end": 5
+    },
+    "type": "text-swap"
+  }
 ]

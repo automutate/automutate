@@ -1,17 +1,18 @@
 [
-    {
-        "mutations": [
-            {
-                "range": {
-                    "begin": 2,
-                    "end": 5
-                },
-                "type": "text-delete"
-            }],
+  {
+    "mutations": [
+      {
         "range": {
-            "begin": 2,
-            "end": 5
+          "begin": 2,
+          "end": 5
         },
-        "type": "multiple"
-    }
+        "type": "text-delete"
+      }
+    ],
+    "range": {
+      "begin": 2,
+      "end": 5
+    },
+    "type": "multiple"
+  }
 ]

@@ -1,25 +1,25 @@
 [
-    {
-        "mutations": [
-            {
-                "insertion": "34",
-                "range": {
-                    "begin": 3
-                },
-                "type": "text-insert"
-            },
-            {
-                "insertion": "12",
-                "range": {
-                    "begin": 2
-                },
-                "type": "text-insert"
-            }
-        ],
+  {
+    "mutations": [
+      {
+        "insertion": "34",
         "range": {
-            "begin": 2,
-            "end": 5
+          "begin": 3
         },
-        "type": "multiple"
-    }
+        "type": "text-insert"
+      },
+      {
+        "insertion": "12",
+        "range": {
+          "begin": 2
+        },
+        "type": "text-insert"
+      }
+    ],
+    "range": {
+      "begin": 2,
+      "end": 5
+    },
+    "type": "multiple"
+  }
 ]

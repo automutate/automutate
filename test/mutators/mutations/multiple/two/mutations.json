@@ -1,26 +1,26 @@
 [
-    {
-        "mutations": [
-            {
-                "range": {
-                    "begin": 2,
-                    "end": 3
-                },
-                "type": "text-delete"
-            },
-            {
-                "insertion": "12",
-                "range": {
-                    "begin": 4,
-                    "end": 5
-                },
-                "type": "text-swap"
-            }
-        ],
+  {
+    "mutations": [
+      {
         "range": {
-            "begin": 2,
-            "end": 5
+          "begin": 2,
+          "end": 3
         },
-        "type": "multiple"
-    }
+        "type": "text-delete"
+      },
+      {
+        "insertion": "12",
+        "range": {
+          "begin": 4,
+          "end": 5
+        },
+        "type": "text-swap"
+      }
+    ],
+    "range": {
+      "begin": 2,
+      "end": 5
+    },
+    "type": "multiple"
+  }
 ]

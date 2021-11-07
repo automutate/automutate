@@ -1,28 +1,23 @@
 {
-    "compilerOptions": {
-        "declaration": true,
-        "lib": [
-            "es2015"
-        ],
-        "module": "commonjs",
-        "moduleResolution": "node",
-        "noFallthroughCasesInSwitch": true,
-        "noImplicitAny": true,
-        "noImplicitReturns": true,
-        "noImplicitThis": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "outDir": "lib",
-        "pretty": true,
-        "sourceMap": true,
-        "strict": true,
-        "target": "es3"
-    },
-    "exclude": [
-        "node_modules",
-        "test/**/*"
-    ],
-    "include": [
-        "src/**/*"
-    ]
+  "compilerOptions": {
+    "declaration": true,
+    "esModuleInterop": true,
+    "lib": ["es2015"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "outDir": "lib",
+    "pretty": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "es2020"
+  },
+  "exclude": ["node_modules", "test/**/*"],
+  "include": ["src", "test"]
 }
