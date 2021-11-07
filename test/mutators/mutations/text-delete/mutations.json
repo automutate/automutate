@@ -1,9 +1,9 @@
 [
-    {
-        "range": {
-            "begin": 2,
-            "end": 5
-        },
-        "type": "text-delete"
-    }
+  {
+    "range": {
+      "begin": 2,
+      "end": 5
+    },
+    "type": "text-delete"
+  }
 ]

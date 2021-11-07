@@ -1,14 +1,10 @@
 {
-    "extends": "../tsconfig.json",
-    "compilerOptions": {
-        "declaration": false,
-        "outDir": ".",
-        "target": "es5"
-    },
-    "exclude": [
-        "end-to-end/rules/**/*"
-    ],
-    "include": [
-        "**/*.ts"
-    ]
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "declaration": false,
+    "outDir": ".",
+    "target": "es5"
+  },
+  "exclude": ["end-to-end/rules/**/*"],
+  "include": ["**/*.ts"]
 }

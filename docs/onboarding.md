@@ -7,7 +7,6 @@ That provider is typically a thin wrapper around an external tool such as a lint
 
 **Any linter can be onboarded onto Automutate**.
 
-
 ## Optional Preqrequisites
 
 These will make the onboarding process smoother.
@@ -24,20 +23,20 @@ That's doable but but messy and inefficient.
 ### Reporting Suggestions
 
 Automutate works best when it does the least.
-Have your linter provide fix suggestions in some format so that all your autolinter needs to do is convert them to waves of `IMutation`s.
+Have your linter provide fix suggestions in some format so that all your autolinter needs to do is convert them to waves of `Mutation`s.
 
-If your linter does not yet provide fix suggestions, you'll need to write converter logic to generate `IMutation`s from the lint output.
+If your linter does not yet provide fix suggestions, you'll need to write converter logic to generate `Mutation`s from the lint output.
 That's doable but carries two major downsides:
-* Your logic will be at risk getting out of sync.
-    * If your linter is updated to produce different output, you'll need to separately update the converter logic.
-    * Users may not know they need to update their autolinter along with your linter, and end up with bad autolinting.
-* Fix suggestions won't have the full information used to generate complaints, such as abstract syntax trees or source files.
 
+- Your logic will be at risk getting out of sync.
+  - If your linter is updated to produce different output, you'll need to separately update the converter logic.
+  - Users may not know they need to update their autolinter along with your linter, and end up with bad autolinting.
+- Fix suggestions won't have the full information used to generate complaints, such as abstract syntax trees or source files.
 
 ## Technical Implementation
 
 Automutation is driven by an instance of the [`AutoMutator` class](../src/autoMutator.ts).
-It requires an [`IMutationsProvider`](../src/mutationsProvider.ts) to generate suggestions that will be applied to files.
+It requires an [`MutationsProvider`](../src/mutationsProvider.ts) to generate suggestions that will be applied to files.
 
 A base setup would look something like:
 
@@ -47,15 +46,15 @@ import { AutoMutator } from "automutate";
 import { SmileyMutationsProvider } from "./smileyMutationsProvider";
 
 export function createMyAutomutator() {
-    return new AutoMutator({
-        mutationsProvider: new SmileyMutationsProvider(),
-    });
+  return new AutoMutator({
+    mutationsProvider: new SmileyMutationsProvider(),
+  });
 }
 ```
 
-### `IMutationsProvider`
+### `MutationsProvider`
 
-An `IMutationsProvider` must implement a `provide()` method that returns a `Promise` for an `IMutationsWave`.
+An `MutationsProvider` must implement a `provide()` method that returns a `Promise` for an `MutationsWave`.
 See [`mutationsProvider.ts`](../src/mutationsProvider.ts) for the interface definitions.
 
 `provide` will be called continuously until its result doesn't contain a `fileMutations` member.
@@ -69,29 +68,29 @@ import * as fs from "mz/fs";
 const smiley = ":)\n";
 
 export class SmileyMutationsProvider {
-    async provide() {
-        const data = await fs.readFile("my-file.txt");
+  async provide() {
+    const data = await fs.readFile("my-file.txt");
 
-        return this.generateMutations(data.toString());
+    return this.generateMutations(data.toString());
+  }
+
+  generateMutations(text) {
+    if (text.substring(smiley.length) === smiley) {
+      return {};
     }
 
-    generateMutations(text) {
-        if (text.substring(smiley.length) === smiley) {
-            return {};
-        }
-
-        return {
-            fileMutations: [
-                {
-                    insertion: smiley,
-                    range: {
-                        begin: 0
-                    },
-                    type: "text-insert",
-                },
-            ],
-        };
-    }
+    return {
+      fileMutations: [
+        {
+          insertion: smiley,
+          range: {
+            begin: 0,
+          },
+          type: "text-insert",
+        },
+      ],
+    };
+  }
 }
 ```
 

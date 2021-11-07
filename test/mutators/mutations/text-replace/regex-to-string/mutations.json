@@ -1,11 +1,11 @@
 [
-    {
-        "replace": "1",
-        "search": "c|d",
-        "range": {
-            "begin": 2,
-            "end": 5
-        },
-        "type": "text-replace"
-    }
+  {
+    "replace": "1",
+    "search": "c|d",
+    "range": {
+      "begin": 2,
+      "end": 5
+    },
+    "type": "text-replace"
+  }
 ]

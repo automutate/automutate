@@ -1,11 +1,11 @@
 [
-    {
-        "replace": "12",
-        "search": "cd",
-        "range": {
-            "begin": 2,
-            "end": 5
-        },
-        "type": "text-replace"
-    }
+  {
+    "replace": "12",
+    "search": "cd",
+    "range": {
+      "begin": 2,
+      "end": 5
+    },
+    "type": "text-replace"
+  }
 ]

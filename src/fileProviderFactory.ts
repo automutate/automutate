@@ -1,10 +1,10 @@
-import { IFileProvider } from "./fileProvider";
+import { FileProvider } from "./fileProvider";
 
 /**
  * File providers, keyed by file name.
  */
-interface IFileProviders {
-    [i: string]: IFileProvider;
+interface FileProviders {
+  [i: string]: FileProvider;
 }
 
 /**
@@ -13,57 +13,57 @@ interface IFileProviders {
  * @param fileName   Name of the file.
  * @returns A file provider for the file.
  */
-export interface ICreateFileProvider {
-    (fileName: string): IFileProvider;
+export interface CreateFileProvider {
+  (fileName: string): FileProvider;
 }
 
 /**
  * Generates file providers for files.
  */
-export interface IFileProviderFactory {
-    /**
-     * Retrieves the file provider for a file.
-     *
-     * @param fileName   Name of the file.
-     * @returns The file provider for the file.
-     */
-    generate(fileName: string): IFileProvider;
+export interface FileProviderFactory {
+  /**
+   * Retrieves the file provider for a file.
+   *
+   * @param fileName   Name of the file.
+   * @returns The file provider for the file.
+   */
+  generate(fileName: string): FileProvider;
 }
 
 /**
  * Generates file providers for files.
  */
-export class FileProviderFactory implements IFileProviderFactory {
-    /**
-     * Creates new file providers for files.
-     */
-    private readonly createFileProvider: ICreateFileProvider;
+export class FileProviderFactory implements FileProviderFactory {
+  /**
+   * Creates new file providers for files.
+   */
+  private readonly createFileProvider: CreateFileProvider;
 
-    /**
-     * File providers, keyed by file name.
-     */
-    private readonly fileProviders: IFileProviders = {};
+  /**
+   * File providers, keyed by file name.
+   */
+  private readonly fileProviders: FileProviders = {};
 
-    /**
-     * Initializes a new instance of the FileProviderFactory class.
-     *
-     * @param createFileProvider   Creates new file providers for files.
-     */
-    public constructor(createFileProvider: ICreateFileProvider) {
-        this.createFileProvider = createFileProvider;
+  /**
+   * Initializes a new nstance of the FileProviderFactory class.
+   *
+   * @param createFileProvider   Creates new file providers for files.
+   */
+  public constructor(createFileProvider: CreateFileProvider) {
+    this.createFileProvider = createFileProvider;
+  }
+
+  /**
+   * Retrieves the file provider for a file.
+   *
+   * @param fileName   Name of the file.
+   * @returns The file provider for the file.
+   */
+  public generate(fileName: string): FileProvider {
+    if (!this.fileProviders[fileName]) {
+      this.fileProviders[fileName] = this.createFileProvider(fileName);
     }
 
-    /**
-     * Retrieves the file provider for a file.
-     *
-     * @param fileName   Name of the file.
-     * @returns The file provider for the file.
-     */
-    public generate(fileName: string): IFileProvider {
-        if (!this.fileProviders[fileName]) {
-            this.fileProviders[fileName] = this.createFileProvider(fileName);
-        }
-
-        return this.fileProviders[fileName];
-    }
+    return this.fileProviders[fileName];
+  }
 }

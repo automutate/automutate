@@ -4,8 +4,7 @@ node_js:
   - "node"
   - "8.0"
 
-script:
-  npm run verify
+script: npm run verify
 
 # Recommended workaround for https://github.com/travis-ci/travis-ci/issues/8836
 sudo: required
