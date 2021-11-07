@@ -27,7 +27,7 @@ export interface MutatorSearcher {
 /**
  * Implementation of the Mutator interface.
  */
-export interface MutatorClass<TMutator extends Mutator> {
+export interface MutatorClass<TMutator extends Mutator = Mutator> {
   /**
    * Initializes a new instance of the TMutator class.
    *
@@ -37,9 +37,9 @@ export interface MutatorClass<TMutator extends Mutator> {
 }
 
 /**
- * Searches for mutator classes.
+ * Searches for mutator classes on a CommonJS system.
  */
-export class MutatorSearcher implements MutatorSearcher {
+export class CommonJSMutatorSearcher implements MutatorSearcher {
   /**
    * Directories to search within.
    */

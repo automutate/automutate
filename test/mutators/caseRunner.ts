@@ -1,14 +1,17 @@
-import * as path from "path";
-
-import { FileProvider } from "../../src/fileProvider";
 import { FileProviderFactory } from "../../src/fileProviderFactory";
 import { StubFileProvider } from "../../src/fileProviders/stubFileProvider";
 import { NoopLogger } from "../../src/loggers/noopLogger";
 import { MutationsApplier } from "../../src/mutationsApplier";
 import { MutatorFactory } from "../../src/mutatorFactory";
-import { MutatorSearcher } from "../../src/mutatorSearcher";
 import { TestCase } from "./testCase";
-import { getMetaUrlDirname } from "./utils";
+
+import { MultipleMutator } from "../../src/mutators/multipleMutator";
+import { TextDeleteMutator } from "../../src/mutators/textDeleteMutator";
+import { TextInsertMutator } from "../../src/mutators/textInsertMutator";
+import { TextReplaceMutator } from "../../src/mutators/textReplaceMutator";
+import { TextSwapMutator } from "../../src/mutators/textSwapMutator";
+import { MutatorClass } from "../../src/mutatorSearcher";
+import { Mutator } from "../../src/mutator";
 
 /**
  * Directs a test harness to expect two strings to be the same.
@@ -19,6 +22,16 @@ import { getMetaUrlDirname } from "./utils";
 export interface Expect {
   (actual: string, expected: string): void;
 }
+
+const stubLogger = new NoopLogger();
+
+const mutatorClasses = new Map<string, MutatorClass>([
+  ["multiple", MultipleMutator],
+  ["text-delete", TextDeleteMutator],
+  ["text-insert", TextInsertMutator],
+  ["text-replace", TextReplaceMutator],
+  ["text-swap", TextSwapMutator],
+]);
 
 /**
  * Verifies mutations described by test cases.
@@ -46,15 +59,18 @@ export class CaseRunner {
    */
   public async runCase(testCase: TestCase): Promise<void> {
     // Arrange
-    const mutatorSearcher = new MutatorSearcher([
-      path.join(getMetaUrlDirname(import.meta.url), "../../src/mutators"),
-    ]);
-    const stubLogger = new NoopLogger();
     const stubFileProvider = new StubFileProvider(testCase.before);
     const mutationsApplier = new MutationsApplier({
       fileProviderFactory: new FileProviderFactory(() => stubFileProvider),
       logger: stubLogger,
-      mutatorFactory: new MutatorFactory(mutatorSearcher, stubLogger),
+      mutatorFactory: new MutatorFactory(
+        {
+          search: <TMutator extends Mutator>(name: string) => {
+            return mutatorClasses.get(name) as MutatorClass<TMutator>;
+          },
+        },
+        stubLogger
+      ),
     });
 
     // Act

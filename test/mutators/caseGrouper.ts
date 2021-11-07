@@ -33,7 +33,7 @@ export class CaseGrouper {
     let currentDirectories: TestDirectories = testDirectories;
 
     for (let i: number = 0; i < testCase.directoryPath.length - 1; i += 1) {
-      const directoryName: string = testCase.directoryPath[i];
+      const directoryName = testCase.directoryPath[i];
       if (!currentDirectories[directoryName]) {
         currentDirectories[directoryName] = {
           cases: {},
@@ -44,7 +44,7 @@ export class CaseGrouper {
       currentDirectories = currentDirectories[directoryName].directories;
     }
 
-    const lastDirectoryName: string =
+    const lastDirectoryName =
       testCase.directoryPath[testCase.directoryPath.length - 1];
     if (!currentDirectories[lastDirectoryName]) {
       currentDirectories[lastDirectoryName] = {

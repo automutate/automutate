@@ -8,7 +8,7 @@ describe("NameTransformer", () => {
       const name = "aaa";
 
       // Act
-      const transformed: string = transformer.toCamelCase(name);
+      const transformed = transformer.toCamelCase(name);
 
       // Assert
       expect(transformed).toBe("aaa");
@@ -20,7 +20,7 @@ describe("NameTransformer", () => {
       const name = "aaa-bbb";
 
       // Act
-      const transformed: string = transformer.toCamelCase(name);
+      const transformed = transformer.toCamelCase(name);
 
       // Assert
       expect(transformed).toBe("aaaBbb");
@@ -32,7 +32,7 @@ describe("NameTransformer", () => {
       const name = "aaa-bbb-ccc";
 
       // Act
-      const transformed: string = transformer.toCamelCase(name);
+      const transformed = transformer.toCamelCase(name);
 
       // Assert
       expect(transformed).toBe("aaaBbbCcc");
@@ -44,7 +44,7 @@ describe("NameTransformer", () => {
       const name = "AaA-bBb-CCC-ddd";
 
       // Act
-      const transformed: string = transformer.toCamelCase(name);
+      const transformed = transformer.toCamelCase(name);
 
       // Assert
       expect(transformed).toBe("aaaBbbCccDdd");
@@ -58,7 +58,7 @@ describe("NameTransformer", () => {
       const name = "aaa";
 
       // Act
-      const transformed: string = transformer.toPascalCase(name);
+      const transformed = transformer.toPascalCase(name);
 
       // Assert
       expect(transformed).toBe("Aaa");
@@ -70,7 +70,7 @@ describe("NameTransformer", () => {
       const name = "aaa-bbb";
 
       // Act
-      const transformed: string = transformer.toPascalCase(name);
+      const transformed = transformer.toPascalCase(name);
 
       // Assert
       expect(transformed).toBe("AaaBbb");
@@ -82,7 +82,7 @@ describe("NameTransformer", () => {
       const name = "aaa-bbb-ccc";
 
       // Act
-      const transformed: string = transformer.toPascalCase(name);
+      const transformed = transformer.toPascalCase(name);
 
       // Assert
       expect(transformed).toBe("AaaBbbCcc");
@@ -94,7 +94,7 @@ describe("NameTransformer", () => {
       const name = "AaA-bBb-CCC-ddd";
 
       // Act
-      const transformed: string = transformer.toPascalCase(name);
+      const transformed = transformer.toPascalCase(name);
 
       // Assert
       expect(transformed).toBe("AaaBbbCccDdd");

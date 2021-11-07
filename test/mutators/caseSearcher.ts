@@ -83,7 +83,7 @@ export class CaseSearcher {
       0,
       directorySplit.length - 1
     );
-    const name: string = directorySplit[directorySplit.length - 1];
+    const name = directorySplit[directorySplit.length - 1];
 
     return { after, before, directoryPath, mutations, name };
   }

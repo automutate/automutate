@@ -10,11 +10,6 @@ import { MutatorSearcher } from "../mutatorSearcher";
  * Settings to apply individual waves of file mutations to local files.
  */
 export interface FileMutationsApplierSettings {
-  // /**
-  //  * Directory to search within.
-  //  */
-  // directory: string;
-
   /**
    * Generates output messages for significant operations.
    */

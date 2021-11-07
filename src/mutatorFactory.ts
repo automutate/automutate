@@ -77,8 +77,7 @@ export class MutatorFactory implements MutatorFactory {
     fileContents: string
   ): TMutator | undefined {
     if (!this.classes[name]) {
-      const mutatorClass: MutatorClass<TMutator> | undefined =
-        this.searcher.search<TMutator>(name);
+      const mutatorClass = this.searcher.search<TMutator>(name);
       if (!mutatorClass) {
         return undefined;
       }
@@ -98,10 +97,7 @@ export class MutatorFactory implements MutatorFactory {
    * @returns The mutated file contents.
    */
   public generateAndApply(fileContents: string, mutation: Mutation): string {
-    const mutator: Mutator | undefined = this.generate(
-      mutation.type,
-      fileContents
-    );
+    const mutator = this.generate(mutation.type, fileContents);
     if (!mutator) {
       this.logger.onUnknownMutationType(mutation);
 

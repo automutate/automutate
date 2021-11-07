@@ -109,7 +109,7 @@ export class MutationsApplier implements MutationsApplier {
       orderMutationsLastToFirstWithoutOverlaps(mutations);
     const fileProvider: FileProvider =
       this.fileProviderFactory.generate(fileName);
-    let fileContents: string = await fileProvider.read();
+    let fileContents = await fileProvider.read();
 
     for (const mutation of mutationsOrdered) {
       fileContents = this.mutatorFactory.generateAndApply(

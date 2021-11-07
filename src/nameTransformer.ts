@@ -37,7 +37,7 @@ export class NameTransformer implements NameTransformer {
       split
         .slice(1)
         .map(
-          (part: string): string =>
+          (part: string) =>
             part.substring(0, 1).toUpperCase() + part.substring(1).toLowerCase()
         )
         .join("")
@@ -54,7 +54,7 @@ export class NameTransformer implements NameTransformer {
     return name
       .split("-")
       .map(
-        (part: string): string =>
+        (part: string) =>
           part.substring(0, 1).toUpperCase() + part.substring(1).toLowerCase()
       )
       .join("");

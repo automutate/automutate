@@ -48,6 +48,5 @@
   "bugs": {
     "url": "https://github.com/automutate/automutate/issues"
   },
-  "homepage": "https://github.com/automutate/automutate#readme",
-  "type": "module"
+  "homepage": "https://github.com/automutate/automutate#readme"
 }
