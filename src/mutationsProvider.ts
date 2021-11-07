@@ -1,4 +1,4 @@
-import { Mutation } from "./mutation";
+import { Mutation } from "./types/mutation";
 
 /**
  * Mutations to be applied to files, keyed by file name.

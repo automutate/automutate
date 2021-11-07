@@ -1,6 +1,6 @@
-import { Mutation } from "../mutation";
+import { Mutation } from "../types/mutation";
 import { FileMutations, MutationsWave } from "../mutationsProvider";
-import { Logger } from "../logger";
+import { Logger } from "../types/logger";
 
 /**
  * Generates console logs for significant operations.

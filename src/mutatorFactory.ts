@@ -1,5 +1,5 @@
-import { Logger } from "./logger";
-import { Mutation } from "./mutation";
+import { Logger } from "./types/logger";
+import { Mutation } from "./types/mutation";
 import { Mutator } from "./mutator";
 import { MutatorClass, MutatorSearcher } from "./types/mutatorSearcher";
 

@@ -1,4 +1,4 @@
-import { Mutation } from "../mutation";
+import { Mutation } from "../types/mutation";
 import { Mutator } from "../mutator";
 import { MutatorFactory } from "../mutatorFactory";
 import {

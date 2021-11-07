@@ -1,5 +1,5 @@
 import { Mutation } from "./mutation";
-import { MutationsWave } from "./mutationsProvider";
+import { MutationsWave } from "../mutationsProvider";
 
 /**
  * Generates output messages for significant operations.

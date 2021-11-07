@@ -1,4 +1,4 @@
-import { Logger } from "./logger";
+import { Logger } from "./types/logger";
 import { ConsoleLogger } from "./loggers/consoleLogger";
 import { MutationsApplier } from "./types/mutationsApplier";
 import { FileMutationsApplier } from "./mutationsAppliers/fileMutationsApplier";

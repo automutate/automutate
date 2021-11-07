@@ -1,6 +1,6 @@
 import * as fs from "fs";
 
-import { FileProvider } from "../fileProvider";
+import { FileProvider } from "../types/fileProvider";
 
 /**
  * Provides read-write operations on a local file.

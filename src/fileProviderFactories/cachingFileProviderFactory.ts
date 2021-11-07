@@ -1,4 +1,4 @@
-import { FileProvider } from "../fileProvider";
+import { FileProvider } from "../types/fileProvider";
 import {
   FileProviderFactory,
   CreateFileProvider,

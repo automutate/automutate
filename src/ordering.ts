@@ -1,4 +1,4 @@
-import { Mutation } from "./mutation";
+import { Mutation } from "./types/mutation";
 
 /**
  * Orders a set of mutations first-to-last.

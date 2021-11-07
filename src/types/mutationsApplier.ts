@@ -1,7 +1,7 @@
-import { FileProvider } from "../fileProvider";
+import { FileProvider } from "./fileProvider";
 import { FileProviderFactory } from "./fileProviderFactory";
-import { Logger } from "../logger";
-import { Mutation } from "../mutation";
+import { Logger } from "./logger";
+import { Mutation } from "./mutation";
 import { FileMutations } from "../mutationsProvider";
 import { MutatorFactory } from "../mutatorFactory";
 import { orderMutationsLastToFirstWithoutOverlaps } from "../ordering";

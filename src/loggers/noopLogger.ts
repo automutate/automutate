@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { Logger } from "../logger";
+import { Logger } from "../types/logger";
 
 /**
  * No-operation logger that does nothing.

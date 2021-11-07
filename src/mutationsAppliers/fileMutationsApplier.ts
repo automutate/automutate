@@ -1,4 +1,4 @@
-import { FileProvider } from "../fileProvider";
+import { FileProvider } from "../types/fileProvider";
 import { LocalFileProvider } from "../fileProviders/localFileProvider";
 import {
   MutationsApplier,
@@ -7,15 +7,22 @@ import {
 import { MutatorFactory } from "../mutatorFactory";
 import { CachingFileProviderFactory } from "../fileProviderFactories/cachingFileProviderFactory";
 import { CommonJSMutatorSearcher } from "../mutatorSearchers/commonJSMutatorSearcher";
+import { Logger } from "../types/logger";
 
 /**
  * Settings to apply individual waves of file mutations to local files.
  */
-export interface FileMutationsApplierSettings extends MutationsApplierSettings {
+export interface FileMutationsApplierSettings
+  extends Partial<MutationsApplierSettings> {
   /**
    * Additional directories to search for mutators within.
    */
   mutatorDirectories?: string[];
+
+  /**
+   * Generates output messages for significant operations.
+   */
+  logger: Logger;
 }
 
 /**
