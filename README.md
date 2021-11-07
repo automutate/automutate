@@ -5,10 +5,10 @@
 
 Applies waves of mutations provided by other tools, such as linters or codemods.
 
-There are [many](https://github.com/eslint/eslint) [linters](https://github.com/palantir/tslint) [in](https://github.com/stylelint/stylelint) [the](https://github.com/lesshint/lesshint) [world](https://github.com/sasstools/sass-lint) and most are adding or have added ways to `--fix` rule failures automatically.
+There are [many](https://github.com/eslint/eslint) [linters](https://github.com/stylelint/stylelint) [out](https://github.com/lesshint/lesshint) [there](https://github.com/sasstools/sass-lint) and most include ways to `--fix` rule failures automatically.
 This is great but hard to do for a couple of reasons:
 
-- **Overlapping mutations** - The possibility of mutations appling to overlapping sets of characters requires logic to handle applying one, then re-running linting, and so on.
+- **Overlapping mutations** - The possibility of mutations applying to overlapping sets of characters requires logic to handle applying one, then re-running linting, and so on.
 - **Code bloat verses duplication** - Most linters either provide hooks to apply fixes themselves (which can result in code bloat) or have an external project (which duplicates logic for finding rules).
 
 `automutate` proposes that linters only propose **how** to fix rules, via a standardized JSON format.
@@ -77,8 +77,8 @@ For example, a language's linter may define a `node-rename` mutation rather than
 
 See [Mutators](docs/mutators.md) for more on custom mutators.
 
-# Project Onboarding
+## Project Onboarding
 
 See [Onboarding](docs/onboarding.md).
 
-`automutate` requires NodeJS >= 4.
+`automutate` requires NodeJS >= 14.
