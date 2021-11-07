@@ -7,7 +7,7 @@ That provider is typically a thin wrapper around an external tool such as a lint
 
 **Any linter can be onboarded onto Automutate**.
 
-## Optional Preqrequisites
+## Optional Prerequisites
 
 These will make the onboarding process smoother.
 They're also good ideas to consider for your code structure.
@@ -35,21 +35,19 @@ That's doable but carries two major downsides:
 
 ## Technical Implementation
 
-Automutation is driven by an instance of the [`AutoMutator` class](../src/autoMutator.ts).
+Automutation is driven by the [`runMutations` function](../src/runMutations.ts).
 It requires an [`MutationsProvider`](../src/mutationsProvider.ts) to generate suggestions that will be applied to files.
 
 A base setup would look something like:
 
 ```javascript
-import { AutoMutator } from "automutate";
+import { runMutations } from "automutate";
 
 import { SmileyMutationsProvider } from "./smileyMutationsProvider";
 
-export function createMyAutomutator() {
-  return new AutoMutator({
-    mutationsProvider: new SmileyMutationsProvider(),
-  });
-}
+await runMutations({
+  mutationsProvider: new SmileyMutationsProvider(),
+});
 ```
 
 ### `MutationsProvider`
