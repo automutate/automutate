@@ -1,10 +1,10 @@
-import { FileProvider } from "./fileProvider";
+import { FileProvider } from "../fileProvider";
 import { FileProviderFactory } from "./fileProviderFactory";
-import { Logger } from "./logger";
-import { Mutation } from "./mutation";
-import { FileMutations } from "./mutationsProvider";
-import { MutatorFactory } from "./mutatorFactory";
-import { orderMutationsLastToFirstWithoutOverlaps } from "./ordering";
+import { Logger } from "../logger";
+import { Mutation } from "../mutation";
+import { FileMutations } from "../mutationsProvider";
+import { MutatorFactory } from "../mutatorFactory";
+import { orderMutationsLastToFirstWithoutOverlaps } from "../ordering";
 
 /**
  * Settings to initialize a new MutationsApplier.
@@ -29,29 +29,7 @@ export interface MutationsApplierSettings {
 /**
  * Applies individual waves of file mutations.
  */
-export interface MutationsApplier {
-  /**
-   * Applies an iteration of file mutations.
-   *
-   * @param mutations   Mutations to be applied to files.
-   * @returns A Promise for the file mutations being applied.
-   */
-  apply(mutations: FileMutations): Promise<void>;
-
-  /**
-   * Applies a file's mutations.
-   *
-   * @param fileName   Name of the file.
-   * @param mutations   Mutations to be applied to the file.
-   * @returns A Promise for the result of the file's mutations.
-   */
-  applyFileMutations(fileName: string, mutations: Mutation[]): Promise<string>;
-}
-
-/**
- * Applies individual waves of file mutations.
- */
-export class MutationsApplier implements MutationsApplier {
+export class MutationsApplier {
   /**
    * Creates file providers for files.
    */

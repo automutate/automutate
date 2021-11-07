@@ -1,7 +1,7 @@
 import { AutoMutatorSettings } from "./autoMutator";
 import { Logger } from "./logger";
 import { ConsoleLogger } from "./loggers/consoleLogger";
-import { MutationsApplier } from "./mutationsApplier";
+import { MutationsApplier } from "./types/mutationsApplier";
 import { FileMutationsApplier } from "./mutationsAppliers/fileMutationsApplier";
 import { MutationsProvider, MutationsWave } from "./mutationsProvider";
 

@@ -1,4 +1,3 @@
-import { FileProviderFactory } from "../../src/fileProviderFactory";
 import { StubFileProvider } from "../../src/fileProviders/stubFileProvider";
 import { NoopLogger } from "../../src/loggers/noopLogger";
 import { MutationsApplier } from "../../src/mutationsApplier";
@@ -61,7 +60,9 @@ export class CaseRunner {
     // Arrange
     const stubFileProvider = new StubFileProvider(testCase.before);
     const mutationsApplier = new MutationsApplier({
-      fileProviderFactory: new FileProviderFactory(() => stubFileProvider),
+      fileProviderFactory: {
+        generate: () => stubFileProvider,
+      },
       logger: stubLogger,
       mutatorFactory: new MutatorFactory(
         {

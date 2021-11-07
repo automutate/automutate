@@ -1,4 +1,8 @@
-import { FileProvider } from "./fileProvider";
+import { FileProvider } from "../fileProvider";
+import {
+  FileProviderFactory,
+  CreateFileProvider,
+} from "../types/fileProviderFactory";
 
 /**
  * File providers, keyed by file name.
@@ -8,32 +12,9 @@ interface FileProviders {
 }
 
 /**
- * Creates new file providers for files.
- *
- * @param fileName   Name of the file.
- * @returns A file provider for the file.
+ * Generates cached file providers for files.
  */
-export interface CreateFileProvider {
-  (fileName: string): FileProvider;
-}
-
-/**
- * Generates file providers for files.
- */
-export interface FileProviderFactory {
-  /**
-   * Retrieves the file provider for a file.
-   *
-   * @param fileName   Name of the file.
-   * @returns The file provider for the file.
-   */
-  generate(fileName: string): FileProvider;
-}
-
-/**
- * Generates file providers for files.
- */
-export class FileProviderFactory implements FileProviderFactory {
+export class CachingFileProviderFactory implements FileProviderFactory {
   /**
    * Creates new file providers for files.
    */

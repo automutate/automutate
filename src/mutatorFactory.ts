@@ -1,7 +1,7 @@
 import { Logger } from "./logger";
 import { Mutation } from "./mutation";
 import { Mutator } from "./mutator";
-import { MutatorClass, MutatorSearcher } from "./mutatorSearcher";
+import { MutatorClass, MutatorSearcher } from "./types/mutatorSearcher";
 
 /**
  * Mutator sub-classes, keyed by dashed-case name.
@@ -13,33 +13,7 @@ interface MutatorClasses {
 /**
  * Creates mutators for mutations.
  */
-export interface MutatorFactory {
-  /**
-   * Attempts to find and instantiate a mutator sub-class for a file.
-   *
-   * @param name   Dashed-case name of the mutator sub-class.
-   * @param fileContents   Contents of the file.
-   * @returns An instance of the mutator sub-class, if the sub-class can be found.
-   */
-  generate<TMutator extends Mutator>(
-    name: string,
-    fileContents: string
-  ): TMutator | undefined;
-
-  /**
-   * Generates and applies a mutator, if possible.
-   *
-   * @param fileContents   Contents of the file.
-   * @param mutation   Mutation to be applied to the file.
-   * @returns The mutated file contents.
-   */
-  generateAndApply(fileContents: string, mutation: Mutation): string;
-}
-
-/**
- * Creates mutators for mutations.
- */
-export class MutatorFactory implements MutatorFactory {
+export class MutatorFactory {
   /**
    * Mutator sub-classes, keyed by dashed-case name.
    */

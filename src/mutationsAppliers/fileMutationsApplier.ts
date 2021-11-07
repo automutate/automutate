@@ -1,10 +1,10 @@
 import { FileProvider } from "../fileProvider";
-import { FileProviderFactory } from "../fileProviderFactory";
 import { LocalFileProvider } from "../fileProviders/localFileProvider";
 import { Logger } from "../logger";
-import { MutationsApplier } from "../mutationsApplier";
+import { MutationsApplier } from "../types/mutationsApplier";
 import { MutatorFactory } from "../mutatorFactory";
-import { MutatorSearcher } from "../mutatorSearcher";
+import { CachingFileProviderFactory } from "../fileProviderFactories/cachingFileProviderFactory";
+import { CommonJSMutatorSearcher } from "../mutatorSearchers/commonJSMutatorSearcher";
 
 /**
  * Settings to apply individual waves of file mutations to local files.
@@ -32,12 +32,12 @@ export class FileMutationsApplier extends MutationsApplier {
    */
   public constructor(settings: FileMutationsApplierSettings) {
     super({
-      fileProviderFactory: new FileProviderFactory(
+      fileProviderFactory: new CachingFileProviderFactory(
         (fileName: string): FileProvider => new LocalFileProvider(fileName)
       ),
       logger: settings.logger,
       mutatorFactory: new MutatorFactory(
-        new MutatorSearcher(settings.mutatorDirectories || []),
+        new CommonJSMutatorSearcher(settings.mutatorDirectories || []),
         settings.logger
       ),
     });
