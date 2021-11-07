@@ -96,14 +96,13 @@ export class FileMutationsApplier implements MutationsApplier {
    * @param mutations   Mutations to be applied to the file.
    * @returns A Promise for the result of the file's mutations.
    */
-  private async applyFileMutations(
+  public async applyFileMutations(
     fileName: string,
     mutations: ReadonlyArray<Mutation>
-  ) {
-    const mutationsOrdered: Mutation[] =
+  ): Promise<string> {
+    const mutationsOrdered =
       orderMutationsLastToFirstWithoutOverlaps(mutations);
-    const fileProvider: FileProvider =
-      this.fileProviderFactory.generate(fileName);
+    const fileProvider = this.fileProviderFactory.generate(fileName);
     let fileContents = await fileProvider.read();
 
     for (const mutation of mutationsOrdered) {
