@@ -1,3 +1,5 @@
+import * as path from "path";
+
 import { FileProvider } from "../types/fileProvider";
 import { LocalFileProvider } from "../fileProviders/localFileProvider";
 import {
@@ -45,7 +47,10 @@ export class FileMutationsApplier extends MutationsApplier {
       mutatorFactory:
         settings.mutatorFactory ??
         new MutatorFactory(
-          new CommonJSMutatorSearcher(settings.mutatorDirectories ?? []),
+          new CommonJSMutatorSearcher([
+            path.join(__dirname, "../../lib/mutators"),
+            ...(settings.mutatorDirectories || []),
+          ]),
           settings.logger
         ),
     });
