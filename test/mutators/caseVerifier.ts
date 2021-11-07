@@ -33,15 +33,15 @@ export class CaseVerifier {
   /**
    * Runs a named description of a directory of test cases.
    */
-  private readonly describeDirectory: IDescribeDirectory;
+  private readonly describeDirectory: DescribeDirectory;
 
   /**
    * Runs a named description of a test case.
    */
-  private readonly describeCase: IDescribeCase;
+  private readonly describeCase: DescribeCase;
 
   /**
-   * Initializes a new nstance of the CaseVerifier class.
+   * Initializes a new instance of the CaseVerifier class.
    *
    * @param caseRunner   Runs test cases to validate results.
    * @param describeDirectory   Runs a named description of a directory of test cases.
@@ -49,8 +49,8 @@ export class CaseVerifier {
    */
   public constructor(
     caseRunner: CaseRunner,
-    describeDirectory: IDescribeDirectory,
-    describeCase: IDescribeCase
+    describeDirectory: DescribeDirectory,
+    describeCase: DescribeCase
   ) {
     this.caseRunner = caseRunner;
     this.describeDirectory = describeDirectory;

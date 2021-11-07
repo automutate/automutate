@@ -1,10 +1,8 @@
-import { expect } from "chai";
-
 import {
   orderMutationsFirstToLast,
   orderMutationsLastToFirst,
   orderMutationsLastToFirstWithoutOverlaps,
-} from "../../lib/ordering";
+} from "../../src/ordering";
 
 const createSampleMutation = (alias: string, begin: number, end?: number) => ({
   insertion: alias,
@@ -29,7 +27,7 @@ describe("orderMutationsFirstToLast", () => {
     ]);
 
     // Assert
-    expect(ordered).to.be.deep.equal([mutations.a, mutations.c, mutations.b]);
+    expect(ordered).toEqual([mutations.a, mutations.c, mutations.b]);
   });
 
   it("orders mutations with end ranges", () => {
@@ -48,7 +46,7 @@ describe("orderMutationsFirstToLast", () => {
     ]);
 
     // Assert
-    expect(ordered).to.be.deep.equal([mutations.b, mutations.c, mutations.a]);
+    expect(ordered).toEqual([mutations.b, mutations.c, mutations.a]);
   });
 });
 
@@ -69,7 +67,7 @@ describe("orderMutationsLastToFirst", () => {
     ]);
 
     // Assert
-    expect(ordered).to.be.deep.equal([mutations.b, mutations.c, mutations.a]);
+    expect(ordered).toEqual([mutations.b, mutations.c, mutations.a]);
   });
 
   it("orders mutations with end ranges", () => {
@@ -88,7 +86,7 @@ describe("orderMutationsLastToFirst", () => {
     ]);
 
     // Assert
-    expect(ordered).to.be.deep.equal([mutations.a, mutations.c, mutations.b]);
+    expect(ordered).toEqual([mutations.a, mutations.c, mutations.b]);
   });
 });
 
@@ -109,7 +107,7 @@ describe("orderMutationsLastToFirstWithoutOverlaps", () => {
     ]);
 
     // Assert
-    expect(ordered).to.be.deep.equal([mutations.b, mutations.c, mutations.a]);
+    expect(ordered).toEqual([mutations.b, mutations.c, mutations.a]);
   });
 
   it("orders mutations with end ranges", () => {
@@ -128,6 +126,6 @@ describe("orderMutationsLastToFirstWithoutOverlaps", () => {
     ]);
 
     // Assert
-    expect(ordered).to.be.deep.equal([mutations.a, mutations.b]);
+    expect(ordered).toEqual([mutations.a, mutations.b]);
   });
 });

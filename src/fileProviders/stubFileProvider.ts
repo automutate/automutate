@@ -10,7 +10,7 @@ export class StubFileProvider implements FileProvider {
   private contents: string;
 
   /**
-   * Initializes a new nstance of the StubFileProvider class.
+   * Initializes a new instance of the StubFileProvider class.
    *
    * @param contents   Initial contents of the file.
    */

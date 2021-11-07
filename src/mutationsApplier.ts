@@ -68,7 +68,7 @@ export class MutationsApplier implements MutationsApplier {
   private readonly mutatorFactory: MutatorFactory;
 
   /**
-   * Initializes a new nstance of the MutationsApplier class.
+   * Initializes a new instance of the MutationsApplier class.
    *
    * @param settings   Settings to be used for initialization.
    */

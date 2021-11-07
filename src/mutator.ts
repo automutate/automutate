@@ -11,7 +11,7 @@ export abstract class Mutator {
   private readonly originalFileContents: string;
 
   /**
-   * Initializes a new nstance of the Mutator class.
+   * Initializes a new instance of the Mutator class.
    *
    * @param originalFileContents   Original contents of the file.
    */

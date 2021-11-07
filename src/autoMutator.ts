@@ -32,7 +32,7 @@ export class AutoMutator {
   private readonly mutationsProvider: MutationsProvider;
 
   /**
-   * Initializes a new nstance of the AutoMutator class.
+   * Initializes a new instance of the AutoMutator class.
    *
    * @param settings   Settings to be used for initialization.
    */

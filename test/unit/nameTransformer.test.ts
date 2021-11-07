@@ -1,6 +1,4 @@
-import { expect } from "chai";
-
-import { NameTransformer } from "../../lib/nameTransformer";
+import { NameTransformer } from "../../src/nameTransformer";
 
 describe("NameTransformer", () => {
   describe("toCamelCase", () => {
@@ -13,7 +11,7 @@ describe("NameTransformer", () => {
       const transformed: string = transformer.toCamelCase(name);
 
       // Assert
-      expect(transformed).to.be.equal("aaa");
+      expect(transformed).toBe("aaa");
     });
 
     it("combines two words", () => {
@@ -25,7 +23,7 @@ describe("NameTransformer", () => {
       const transformed: string = transformer.toCamelCase(name);
 
       // Assert
-      expect(transformed).to.be.equal("aaaBbb");
+      expect(transformed).toBe("aaaBbb");
     });
 
     it("combines three words", () => {
@@ -37,7 +35,7 @@ describe("NameTransformer", () => {
       const transformed: string = transformer.toCamelCase(name);
 
       // Assert
-      expect(transformed).to.be.equal("aaaBbbCcc");
+      expect(transformed).toBe("aaaBbbCcc");
     });
 
     it("ignores casing", () => {
@@ -49,7 +47,7 @@ describe("NameTransformer", () => {
       const transformed: string = transformer.toCamelCase(name);
 
       // Assert
-      expect(transformed).to.be.equal("aaaBbbCccDdd");
+      expect(transformed).toBe("aaaBbbCccDdd");
     });
   });
 
@@ -63,7 +61,7 @@ describe("NameTransformer", () => {
       const transformed: string = transformer.toPascalCase(name);
 
       // Assert
-      expect(transformed).to.be.equal("Aaa");
+      expect(transformed).toBe("Aaa");
     });
 
     it("combines two words", () => {
@@ -75,7 +73,7 @@ describe("NameTransformer", () => {
       const transformed: string = transformer.toPascalCase(name);
 
       // Assert
-      expect(transformed).to.be.equal("AaaBbb");
+      expect(transformed).toBe("AaaBbb");
     });
 
     it("combines three words", () => {
@@ -87,7 +85,7 @@ describe("NameTransformer", () => {
       const transformed: string = transformer.toPascalCase(name);
 
       // Assert
-      expect(transformed).to.be.equal("AaaBbbCcc");
+      expect(transformed).toBe("AaaBbbCcc");
     });
 
     it("ignores casing", () => {
@@ -99,7 +97,7 @@ describe("NameTransformer", () => {
       const transformed: string = transformer.toPascalCase(name);
 
       // Assert
-      expect(transformed).to.be.equal("AaaBbbCccDdd");
+      expect(transformed).toBe("AaaBbbCccDdd");
     });
   });
 });

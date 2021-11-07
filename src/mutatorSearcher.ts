@@ -29,7 +29,7 @@ export interface MutatorSearcher {
  */
 export interface MutatorClass<TMutator extends Mutator> {
   /**
-   * Initializes a new nstance of the TMutator class.
+   * Initializes a new instance of the TMutator class.
    *
    * @param originalFileContents   Original contents of the file.
    */
@@ -51,14 +51,14 @@ export class MutatorSearcher implements MutatorSearcher {
   private readonly nameTransformer: NameTransformer;
 
   /**
-   * Initializes a new nstance of the MutatorSearcher class.
+   * Initializes a new instance of the MutatorSearcher class.
    *
    * @param nameTransformer  Transforms dashed-case names to camelCase.
    * @param directories   Directories to search within.
    */
   public constructor(
     directories: string[],
-    nameTransformer: NameTransformer = new NameTransformer()
+    nameTransformer = new NameTransformer()
   ) {
     this.nameTransformer = nameTransformer;
     this.directories = directories;

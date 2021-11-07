@@ -22,7 +22,7 @@ export class TestRunner {
   private readonly caseVerifier: CaseVerifier;
 
   /**
-   * Initializes a new nstance of the TestRunner class.
+   * Initializes a new instance of the TestRunner class.
    *
    * @param caseSearcher   Finds test cases that should be run.
    */

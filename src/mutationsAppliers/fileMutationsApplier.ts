@@ -1,5 +1,3 @@
-import * as path from "path";
-
 import { FileProvider } from "../fileProvider";
 import { FileProviderFactory } from "../fileProviderFactory";
 import { LocalFileProvider } from "../fileProviders/localFileProvider";
@@ -12,6 +10,11 @@ import { MutatorSearcher } from "../mutatorSearcher";
  * Settings to apply individual waves of file mutations to local files.
  */
 export interface FileMutationsApplierSettings {
+  // /**
+  //  * Directory to search within.
+  //  */
+  // directory: string;
+
   /**
    * Generates output messages for significant operations.
    */
@@ -28,7 +31,7 @@ export interface FileMutationsApplierSettings {
  */
 export class FileMutationsApplier extends MutationsApplier {
   /**
-   * Initializes a new nstance of the FileMutationsApplier class.
+   * Initializes a new instance of the FileMutationsApplier class.
    *
    * @param settings   Settings to be used for initialization.
    */
@@ -39,10 +42,7 @@ export class FileMutationsApplier extends MutationsApplier {
       ),
       logger: settings.logger,
       mutatorFactory: new MutatorFactory(
-        new MutatorSearcher([
-          path.join(__dirname, "../../lib/mutators"),
-          ...(settings.mutatorDirectories || []),
-        ]),
+        new MutatorSearcher(settings.mutatorDirectories || []),
         settings.logger
       ),
     });

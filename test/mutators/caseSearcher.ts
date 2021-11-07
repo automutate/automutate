@@ -1,9 +1,10 @@
 import * as fs from "fs";
-import * as glob from "glob";
+import glob from "glob";
 import * as path from "path";
 
 import { Mutation } from "../../lib/mutation";
 import { casesRoot, TestCase, TestCasePath } from "./testCase";
+import { getMetaUrlDirname } from "./utils";
 
 /**
  * Finds test cases that should be run.
@@ -15,12 +16,12 @@ export class CaseSearcher {
   private readonly rootDirectory: string;
 
   /**
-   * Initializes a new nstance of the CaseSearcher class.
+   * Initializes a new instance of the CaseSearcher class.
    *
    * @param rootDirectory   Root directory to search for tests under.
    */
   public constructor(rootDirectory: string) {
-    this.rootDirectory = rootDirectory;
+    this.rootDirectory = getMetaUrlDirname(rootDirectory);
   }
 
   /**
@@ -38,10 +39,10 @@ export class CaseSearcher {
    * @returns A Promise for mutation file paths under the root directory.
    */
   private async findMutationFiles(): Promise<string[]> {
-    return new Promise<string[]>((resolve, reject) => {
+    return new Promise<string[]>((resolve, reject): void => {
       glob(
         path.join(this.rootDirectory, "**/mutations.json"),
-        (error, files) => {
+        (error, files): void => {
           error ? reject(error) : resolve(files);
         }
       );
@@ -94,8 +95,8 @@ export class CaseSearcher {
    * @returns A Promise for the contents of the file.
    */
   private readFile(fileName: string): Promise<string> {
-    return new Promise<string>((resolve, reject) => {
-      fs.readFile(fileName, (error, data) => {
+    return new Promise<string>((resolve, reject): void => {
+      fs.readFile(fileName, (error, data): void => {
         error ? reject(error) : resolve(data.toString());
       });
     });

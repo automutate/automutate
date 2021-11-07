@@ -56,7 +56,7 @@ export class MutatorFactory implements MutatorFactory {
   private readonly searcher: MutatorSearcher;
 
   /**
-   * Initializes a new nstance of the MutatorFactory class.
+   * Initializes a new instance of the MutatorFactory class.
    *
    * @param searcher   Searches for mutator classes.
    */

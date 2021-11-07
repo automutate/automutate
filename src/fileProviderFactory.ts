@@ -45,7 +45,7 @@ export class FileProviderFactory implements FileProviderFactory {
   private readonly fileProviders: FileProviders = {};
 
   /**
-   * Initializes a new nstance of the FileProviderFactory class.
+   * Initializes a new instance of the FileProviderFactory class.
    *
    * @param createFileProvider   Creates new file providers for files.
    */
