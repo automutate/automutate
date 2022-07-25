@@ -73,7 +73,7 @@ export class MutatorFactory {
   public generateAndApply(fileContents: string, mutation: Mutation): string {
     const mutator = this.generate(mutation.type, fileContents);
     if (!mutator) {
-      this.logger.onUnknownMutationType(mutation);
+      this.logger.onUnknownMutationType?.(mutation);
 
       return fileContents;
     }
