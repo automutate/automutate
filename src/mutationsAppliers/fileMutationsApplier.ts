@@ -85,8 +85,6 @@ export class FileMutationsApplier implements MutationsApplier {
         await this.applyFileMutations(fileName, mutations[fileName]);
       })
     );
-
-    this.logger.onComplete();
   }
 
   /**
@@ -110,7 +108,7 @@ export class FileMutationsApplier implements MutationsApplier {
         fileContents,
         mutation
       );
-      this.logger.onMutation(fileName, mutation);
+      this.logger.onMutation?.(fileName, mutation);
     }
 
     await fileProvider.write(fileContents);

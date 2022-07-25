@@ -1,5 +1,4 @@
 import { Logger } from "./types/logger";
-import { ConsoleLogger } from "./loggers/consoleLogger";
 import { MutationsApplier } from "./types/mutationsApplier";
 import { FileMutationsApplier } from "./mutationsAppliers/fileMutationsApplier";
 import { MutationsProvider } from "./mutationsProvider";
@@ -59,14 +58,18 @@ export interface MutationRunResults {
 export const runMutations = async (
   settings: MutationRunSettings
 ): Promise<MutationRunResults> => {
-  const logger = settings.logger ?? new ConsoleLogger();
+  const logger = settings.logger ?? {};
   const mutatedFileNames = new Set<string>();
   const mutationsApplier =
     settings.mutationsApplier ?? new FileMutationsApplier({ logger });
   const { maximum = Infinity, minimum = 0 } = settings.waves ?? {};
 
+  logger.onRunMutationsBegin?.();
+
   for (let i = 0; i < maximum; i += 1) {
+    logger.onProvideBegin?.();
     const mutationsWave = await settings.mutationsProvider.provide();
+    logger.onProvideEnd?.(mutationsWave);
     if (mutationsWave.fileMutations === undefined) {
       if (i < minimum) {
         continue;
@@ -75,14 +78,16 @@ export const runMutations = async (
       break;
     }
 
-    logger.onWaveBegin(mutationsWave);
+    logger.onMutationsApplyBegin?.(mutationsWave.fileMutations);
     await mutationsApplier.apply(mutationsWave.fileMutations);
-    logger.onWaveEnd(mutationsWave);
+    logger.onMutationsApplyEnd?.(mutationsWave.fileMutations);
 
     for (const fileName of Object.keys(mutationsWave.fileMutations)) {
       mutatedFileNames.add(fileName);
     }
   }
+
+  logger.onRunMutationsEnd?.();
 
   return {
     mutatedFileNames: Array.from(mutatedFileNames),
