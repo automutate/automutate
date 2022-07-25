@@ -1,12 +1,11 @@
 import { jest } from "@jest/globals";
-import { FileMutations, Mutation, MutationsWave } from "../../src";
+import { FileMutations, MutationsWave } from "../../src";
 
-import { NoopLogger } from "../../src/loggers/noopLogger";
 import { runMutations } from "../../src/runMutations";
 
 const apply = jest.fn(async () => {});
 const provide = jest.fn<Promise<MutationsWave>, []>();
-const stubLogger = new NoopLogger();
+const stubLogger = {};
 
 describe("runMutations", () => {
   it("returns immediately by default when no mutations are provided", async () => {

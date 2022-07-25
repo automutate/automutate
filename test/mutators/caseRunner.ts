@@ -1,5 +1,4 @@
 import { StubFileProvider } from "../../src/fileProviders/stubFileProvider";
-import { NoopLogger } from "../../src/loggers/noopLogger";
 import { FileMutationsApplier } from "../../src/mutationsAppliers/fileMutationsApplier";
 import { MutatorFactory } from "../../src/mutatorFactory";
 import { TestCase } from "./testCase";
@@ -22,7 +21,7 @@ export interface Expect {
   (actual: string, expected: string): void;
 }
 
-const stubLogger = new NoopLogger();
+const stubLogger = {};
 
 const mutatorClasses = new Map<string, MutatorClass>([
   ["multiple", MultipleMutator],
